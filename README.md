@@ -86,6 +86,26 @@ var arr1 = [ "test1", "test2", "test3" ],
 arr1.normalize(arr2); // [ "test1", "test3" ];
 ```
 
+#### Array.toLowerCase() ####
+
+Simply returns an array with all string values converted to lower case via `String#toLowerCase()`.
+
+```
+var arr = [ "TEST1", "TEST2", "TEST3" ];
+
+arr.toLowerCase(); // [ "test1", "test2", "test3" ];
+```
+
+#### Array.toUpperCase() ####
+
+Companion method to the above, except using `String#toUpperCase()`.
+
+```
+var arr = [ "test1", "test2", "test3" ];
+
+arr.toUpperCase(); // [ "TEST1", "TEST2", "TEST3" ];
+```
+
 ### Number ###
 
 #### Number.comma() ####
