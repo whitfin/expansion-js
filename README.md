@@ -75,9 +75,9 @@ There are several prototypes included in this library already, and will have mor
 
 ### Array ###
 
-#### Array.normalize(normalizer) ####
+#### Array.normalize(normalizer[, sensitive]) ####
 
-Simple method to provide an array of values for the current array to conform to. Retains only the matching values between the two arrays.
+Simple method to provide an array of values for the current array to conform to. Retains only the matching values between the two arrays. Case sensitivity is controlled by passing true/false as the second parameter (defaults to non-case sensitive).
 
 ```
 var arr1 = [ "test1", "test2", "test3" ],

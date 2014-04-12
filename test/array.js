@@ -35,6 +35,26 @@ describe('Testing library prototypes of the Array object', function(){
 			next();
 		});
 
+		it('should remove values from an array with case in mind', function(next){
+			var arr1 = [ "TEST1", "test2", "test3" ],
+				arr2 = [ "TEST1", "TEST2", "TEST3" ],
+				arr3 = [ "test1", "test3" ];
+
+			assert.deepEqual(arr1.normalize(arr2, true), [ "TEST1" ]);
+			assert.deepEqual(arr1.normalize(arr3, true), [ "test3" ]);
+			next();
+		});
+
+		it('should remove values from an array without caring for case', function(next){
+			var arr1 = [ "TEST1", "test2", "test3" ],
+				arr2 = [ "TEST1", "TEST2", "TEST3" ],
+				arr3 = [ "test1", "test3" ];
+
+			assert.deepEqual(arr1.normalize(arr2, false), arr1);
+			assert.deepEqual(arr1.normalize(arr3, false), [ "TEST1", "test3" ]);
+			next();
+		});
+
 	});
 
 	describe('Validation of the \'toLowerCase()\' function', function(){
