@@ -118,6 +118,43 @@ Returns a number as a string with a comma (",") placed every 3 digits, as standa
 
 ### Object ###
 
+#### Object.clone() ####
+
+Returns a clone of the current object. Not to be confused with a reference. Properly handles Arrays, Dates, Functions, Objects, and null/undefined values.
+
+```
+var obj1 = { a:{ b:{ c:5 } } },
+    obj2 = obj1.clone();
+
+obj2.a.b.d = 10;
+
+obj1.a.b.c;     // 5
+obj2.a.b.c;     // 10
+```
+
+The clone() method should also be able to handle user-created objects.
+
+```
+function Car(desc){
+    this.desc = desc;
+    this.color = "red";
+    this.getInfo = function getInfo() {
+        return 'A ' + this.color + ' ' + this.desc + '.';
+    };
+}
+
+var car1 = new Car('honda'),
+    car2 = car1.clone();
+
+car1;   // Car {desc: "honda", color: "red", getInfo: function}
+car2;   // Car {desc: "honda", color: "red", getInfo: function}
+
+car2.desc = 'toyota';
+
+car1;   // Car {desc: "honda", color: "red", getInfo: function}
+car2;   // Car {desc: "toyota", color: "red", getInfo: function}
+```
+
 #### Object.equals(object[, equality]) ####
 
 Compares against an object and returns a boolean if the two are identical. The `equality` parameter dictates if we should use `==` over `===` for comparisons.
