@@ -94,6 +94,39 @@ describe('Testing library prototypes of the Object object', function(){
 
 	});
 
+	describe('Validation of the \'instance()\' function', function(){
+
+		it('should return primitive types', function(next){
+			assert.equal((1).instance(), "Number");
+			assert.equal("1".instance(), "String");
+			assert.equal(true.instance(), "Boolean");
+			next();
+		});
+
+		it('should return composite types', function(next){
+			assert.equal([].instance(), "Array");
+			assert.equal({}.instance(), "Object");
+			next();
+		});
+
+		it('should return various object types', function(next){
+			assert.equal(new Date().instance(), "Date");
+			assert.equal(new Error().instance(), "Error");
+			assert.equal(new RegExp().instance(), "RegExp");
+			next();
+		});
+
+		it('should return various custom object types', function(next){
+			var funk;
+			assert.equal((funk = function Cat(){}, new funk().instance()), "Cat");
+			assert.equal((funk = function Hat(){}, new funk().instance()), "Hat");
+			assert.equal((funk = function Mat(){}, new funk().instance()), "Mat");
+			assert.equal((funk = function Rat(){}, new funk().instance()), "Rat");
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'pretty()\' function', function(){
 
 		it('should pretty an object using 4 spaces', function(next){

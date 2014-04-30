@@ -166,6 +166,18 @@ obj.equals({ key2:"2", key1:1, key3:{ key4:4 } });         // false
 obj.equals({ key2:"2", key1:1, key3:{ key4:4 } }, true);   // true
 ```
 
+#### Object.instance() ####
+
+Returns the type the object belongs to. This is effectively a way to print `instanceof`. Can also be used instead of `typeof(obj)`.
+
+```
+var arr = [],
+    obj = {};
+
+arr.instance();     // "Array"
+obj.instance();     // "Object"
+```
+
 #### Object.pretty([indent]) ####
 
 Stringifies a number with a given indent. If no indent is given, it defaults to 4 spaces.
