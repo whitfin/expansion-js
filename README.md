@@ -239,6 +239,30 @@ str.capitalize('a');    // "This Is A Test String. This Is A Second Test String.
 str.capitalize('s');    // "This is a test string. This is a second test string.";
 ```
 
+#### String.endsWith(str) ####
+
+Checks if the current string ends with a given string, returns true if this is the case. Handles undefined/null/empty strings appropriately. Case-sensitive.
+
+```
+var str = "this is a test string.";
+
+str.endsWith("string."); // true
+str.endsWith("String."); // true
+str.endsWith("test.");   // false
+```
+
+#### String.startsWith(str) ####
+
+Checks if the current string starts with a given string, returns true if this is the case. Handles undefined/null/empty strings appropriately. Case-sensitive.
+
+```
+var str = "this is a test string.";
+
+str.endsWith("this");   // true
+str.endsWith("This");   // false
+str.endsWith("test");   // false
+```
+
 ## Tests ##
 
 Each lib-contained prototype contains a test, along with the utility methods. You can invoke all tests via a simple command:

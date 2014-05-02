@@ -27,4 +27,60 @@ describe('Testing library prototypes of the String object', function(){
 
 	});
 
+	describe('Validation of the \'endsWith()\' function', function(){
+
+		it('should return true if the string ends correctly', function(next){
+			assert("This is a string".endsWith("string"));
+			assert("123456789".endsWith("789"));
+			next();
+		});
+
+		it('should return false if the string doesn\'t end correctly', function(next){
+			assert(!("This is a string".endsWith("test")));
+			assert(!("123456789".endsWith("123")));
+			next();
+		});
+
+		it('should validate case-sensitiveness', function(next){
+			assert("This is a string".endsWith("string"));
+			assert(!("This Is A String".endsWith("string")));
+			next();
+		});
+
+		it('should handle empty or null strings', function(next){
+			assert("".endsWith(""));
+			assert(!("".endsWith(null)));
+			next();
+		});
+
+	});
+
+	describe('Validation of the \'startsWith()\' function', function(){
+
+		it('should return true if the string starts correctly', function(next){
+			assert("This is a string".startsWith("This"));
+			assert("123456789".startsWith("123"));
+			next();
+		});
+
+		it('should return false if the string doesn\'t starts correctly', function(next){
+			assert(!("This is a string".startsWith("test")));
+			assert(!("123456789".startsWith("789")));
+			next();
+		});
+
+		it('should validate case-sensitiveness', function(next){
+			assert("This is a string".startsWith("This"));
+			assert(!("This Is A String".startsWith("this")));
+			next();
+		});
+
+		it('should handle empty or null strings', function(next){
+			assert("".startsWith(""));
+			assert(!("".startsWith(null)));
+			next();
+		});
+
+	});
+
 });
