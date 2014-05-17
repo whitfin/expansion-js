@@ -75,6 +75,21 @@ There are several prototypes included in this library already, and will have mor
 
 ### Array ###
 
+#### Array.merge([index][, arrays...][, filter] ####
+
+An extension on the Array.concat() method to allow insertion at a given index, with the option of filtering duplications.
+
+```
+var arr1 = [ 1, 2, 3 ],
+    arr2 = [ 4, 5, 6 ],
+    arr3 = [ 1, 3, 5 ];
+
+arr1.merge(arr2);           // [ 1, 2, 3, 4, 5, 6 ]
+arr1.merge(1, arr2);        // [ 1, 4, 5, 6, 2, 3 ]
+arr1.merge(arr2, arr3);     // [ 1, 2, 3, 4, 5, 6, 1, 3, 5 ]
+arr1.merge(arr3, true);     // [ 1, 2, 3, 5 ]
+```
+
 #### Array.normalize(normalizer[, sensitive]) ####
 
 Simple method to provide an array of values for the current array to conform to. Retains only the matching values between the two arrays. Case sensitivity is controlled by passing true/false as the second parameter (defaults to non-case sensitive).
@@ -104,6 +119,16 @@ Companion method to the above, except using `String#toUpperCase()`.
 var arr = [ "test1", "test2", "test3" ];
 
 arr.toUpperCase(); // [ "TEST1", "TEST2", "TEST3" ];
+```
+
+#### Array.unique() ####
+
+Returns a version of the current array without any duplicated items. Items will be preserved in the order they first appear.
+
+```
+var arr = [ 1, 2, 3, 4, 5, 5, 3, 2 ]
+
+arr.unique();   // [ 1, 2, 3, 4, 5 ]
 ```
 
 ### Number ###
