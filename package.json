@@ -16,9 +16,23 @@
 		"prototype"
 	],
 	"scripts": {
-		"test":"node test.js"
+		"coverage":"rm -f coverage.html && mocha -r blanket -R html-cov test > coverage.html",
+		"test":"node test.js spec; node test.js | ./node_modules/coveralls/bin/coveralls.js"
 	},
 	"devDependencies":{
-		"mocha":"*"
+		"blanket":"*",
+		"coveralls": "*",
+		"mocha":"*",
+		"mocha-lcov-reporter": "0.0.1"
+	},
+	"config": {
+		"blanket":{
+			"pattern":[
+				"lib/array.js",
+				"lib/number.js",
+				"lib/object.js",
+				"lib/string.js"
+			]
+		}
 	}
 }

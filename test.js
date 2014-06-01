@@ -1,9 +1,20 @@
 var fs = require('fs'),
 	Mocha = require("mocha");
 
+// Code coverage
+require("blanket")({
+	"pattern":[
+		"lib/array.js",
+		"lib/number.js",
+		"lib/object.js",
+		"lib/string.js"
+	]
+});
+
+// Mocha instance
 var mocha = new Mocha({
 	ui:"bdd",
-	reporter:"spec"
+	reporter:process.argv[2] || "mocha-lcov-reporter"
 });
 
 // Files which need to be ignored

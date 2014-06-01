@@ -1,7 +1,8 @@
-ExpansionJS [![Build Status](https://travis-ci.org/iwhitfield/expansion-js.svg?branch=master)](https://travis-ci.org/iwhitfield/expansion-js)
+ExpansionJS [![Build Status](https://travis-ci.org/iwhitfield/expansion-js.svg?branch=master)](https://travis-ci.org/iwhitfield/expansion-js) [![Coverage Status](https://coveralls.io/repos/iwhitfield/expansion-js/badge.png?branch=master)](https://coveralls.io/r/iwhitfield/expansion-js?branch=master)
 ===========
 
 - [Setup](#setup)
+- [Compatibility](#compatibility)
 - [Example Usage](#usage)
 - [Contained Prototypes](#contained-prototypes)
     - [Array](#array)
@@ -32,6 +33,10 @@ This is subject to change depending on the path this project takes. If you wish 
 ```
 var expand = require('expansion');
 ```
+
+## Compatibility ##
+
+Support for CI builds against Node v0.6.x have been removed due to the need for code coverage tracking, which requires >= 0.8.x. The code, without the tests, should continue to work on Node v0.6.x. In terms of platforms, I see no reason why this wouldn't work perfectly across Windows, Mac OS X and Linux systems - however, Windows users will be unable to run the coverage generation, and will only be able to run tests via the `node test.js spec` command.
 
 ## Usage ##
 
@@ -328,19 +333,19 @@ str.endsWith("test");   // false
 Each lib-contained prototype contains a test, along with the utility methods. You can invoke all tests via a simple command:
 
 ```
-$ node test.js
+$ node test.js spec
 ```
 
-or, if you prefer:
-
-```
-$ npm test
-```
-
-If you wish to run a specific test, just invoke the test via Mocha.
+Currently, `npm test` is reserved for the use of Travis only. If you wish to run a specific test, just invoke the test via Mocha.
 
 ```
 $ mocha -R spec array.js
+```
+
+You can also generate a coverage file via Mocha using the below command:
+
+```
+$ npm run-script coverage && open-coverage.html
 ```
 
 ## Issues ##
