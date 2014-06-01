@@ -88,6 +88,15 @@ arr1.insert(-1, 0);         // [ 0, 1, 2, 3, 4, 5 ]
 arr1.insert(99, 6);         // [ 0, 1, 2, 3, 4, 5, 6 ]
 ```
 
+#### Array.isEmpty() ####
+
+Exactly what it says, returns a boolean based on the population of the array. True if empty, false is elements exist.
+
+```
+[ ].isEmpty();  // true
+[1].isEmpty();  // false
+```
+
 #### Array.merge([index][, arrays...][, filter] ####
 
 An extension on the Array.concat() method to allow insertion at a given index, with the option of filtering duplications.

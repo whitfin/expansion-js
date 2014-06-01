@@ -39,6 +39,23 @@ describe('Testing library prototypes of the Array object', function(){
 
 	});
 
+	describe('Validation of the \'isEmpty()\' function', function(){
+
+		it('should detect an empty array', function(next){
+			assert([].isEmpty());
+			next();
+		});
+
+		it('should detect an array with values', function(next){
+			assert(![ 1 ].isEmpty());
+			assert(!["1"].isEmpty());
+			assert(![ null ].isEmpty());
+			assert(![ undefined ].isEmpty());
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'merge()\' function', function(){
 
 		it('should merge together two arrays', function(next){
