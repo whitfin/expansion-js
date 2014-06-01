@@ -57,11 +57,13 @@ describe('Testing library prototypes of the Array object', function(){
 			next();
 		});
 
-		it('should calculate the intersection of an array and a null value', function(next){
-			var arr1 = [ 1, "2", 3 ],
-				arr2 = null;
+		it('should calculate the intersection of an array and non-array values', function(next){
+			var arr1 = [ 1, "2", 3 ];
 
-			assert.deepEqual(arr1.intersect(arr2), [ ]);
+			assert.deepEqual(arr1.intersect("1"), [ ]);
+			assert.deepEqual(arr1.intersect(123), [ ]);
+			assert.deepEqual(arr1.intersect(null), [ ]);
+			assert.deepEqual(arr1.intersect(undefined), [ ]);
 			next();
 		});
 

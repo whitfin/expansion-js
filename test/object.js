@@ -20,7 +20,7 @@ describe('Testing library prototypes of the Object object', function(){
 		});
 
 		it('should clone an object recursively', function(next){
-			var obj = { a:5, b:"5", c:{ d:[ 1, 2, 3 ], e:null, f:undefined } };
+			var obj = { a:5, b:"5", c:{ d:[ 1, { "value" : 2 }, 3 ], e:null, f:undefined } };
 
 			assert.deepEqual(obj.clone(), obj);
 			next();
