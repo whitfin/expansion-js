@@ -75,6 +75,19 @@ There are several prototypes included in this library already, and will have mor
 
 ### Array ###
 
+#### Array.insert(index, entry...) ####
+
+Insert an arbitrary number of elements at the given index in an array. If the index is out of bounds on either side of the array, the index will default to the nearest index it can find. This method is destructive by operating on the current instance of the array, but also returns to allow chaining.
+
+```
+var arr1 = [ 1 ];
+
+arr1.insert(1, 5);          // [ 1, 5 ]
+arr1.insert(1, 2, 3, 4);    // [ 1, 2, 3, 4, 5 ]
+arr1.insert(-1, 0);         // [ 0, 1, 2, 3, 4, 5 ]
+arr1.insert(99, 6);         // [ 0, 1, 2, 3, 4, 5, 6 ]
+```
+
 #### Array.merge([index][, arrays...][, filter] ####
 
 An extension on the Array.concat() method to allow insertion at a given index, with the option of filtering duplications.

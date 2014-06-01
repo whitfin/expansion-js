@@ -2,6 +2,43 @@ var assert = require('assert');
 
 describe('Testing library prototypes of the Array object', function(){
 
+	describe('Validation of the \'insert()\' function', function(){
+
+		it('should insert a value at a given index', function(next){
+			var arr1 = [ 1, 3 ],
+				arr2 = [ 1, 2, 3 ];
+
+			assert.deepEqual(arr1.insert(1, 2), arr2);
+			next();
+		});
+
+		it('should insert multiple values at a given index', function(next){
+			var arr1 = [ 1, 5 ],
+				arr2 = [ 1, 2, 3, 4, 5 ];
+
+			assert.deepEqual(arr1.insert(1, 2, 3, 4), arr2);
+			next();
+		});
+
+		it('should append if a index above the length is given', function(next){
+			var arr1 = [ 1 ],
+				arr2 = [ 1, 2 ];
+
+			assert.deepEqual(arr1.insert(1, 2), arr2);
+			assert.deepEqual(arr1.insert(10, 3), (arr2.push(3), arr2));
+			next();
+		});
+
+		it('should handle a case where a merge index is negative', function(next){
+			var arr1 = [ 1 ],
+				arr2 = [ 0 , 1 ];
+
+			assert.deepEqual(arr1.insert(-1, 0), arr2);
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'merge()\' function', function(){
 
 		it('should merge together two arrays', function(next){
