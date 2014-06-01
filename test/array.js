@@ -39,6 +39,43 @@ describe('Testing library prototypes of the Array object', function(){
 
 	});
 
+	describe('Validation of the \'intersect()\' function', function(){
+
+		it('should calculate the intersection of arrays of the same type', function(next){
+			var arr1 = [ 1, 2, 3 ],
+				arr2 = [ 1, 3, 5 ];
+
+			assert.deepEqual(arr1.intersect(arr2), [ 1, 3 ]);
+			next();
+		});
+
+		it('should calculate the intersection of arrays of different types', function(next){
+			var arr1 = [ 1, "2", 3 ],
+				arr2 = [ 1, "3", 5 ];
+
+			assert.deepEqual(arr1.intersect(arr2), [ 1 ]);
+			next();
+		});
+
+		it('should calculate the intersection of an array and a null value', function(next){
+			var arr1 = [ 1, "2", 3 ],
+				arr2 = null;
+
+			assert.deepEqual(arr1.intersect(arr2), [ ]);
+			next();
+		});
+
+		it('should calculate the intersection of multiple arrays via chaining', function(next){
+			var arr1 = [ 1, 2, 3 ],
+				arr2 = [ 1, 3, 5 ],
+				arr3 = [ 1, 4, 7 ];
+
+			assert.deepEqual(arr1.intersect(arr2).intersect(arr3), [ 1 ]);
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'isEmpty()\' function', function(){
 
 		it('should detect an empty array', function(next){

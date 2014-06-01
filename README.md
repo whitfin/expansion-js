@@ -1,4 +1,4 @@
-ExpansionJS
+ExpansionJS [![Build Status](https://travis-ci.org/iwhitfield/expansion-js.svg?branch=master)](https://travis-ci.org/iwhitfield/expansion-js)
 ===========
 
 - [Setup](#setup)
@@ -86,6 +86,19 @@ arr1.insert(1, 5);          // [ 1, 5 ]
 arr1.insert(1, 2, 3, 4);    // [ 1, 2, 3, 4, 5 ]
 arr1.insert(-1, 0);         // [ 0, 1, 2, 3, 4, 5 ]
 arr1.insert(99, 6);         // [ 0, 1, 2, 3, 4, 5, 6 ]
+```
+
+#### Array.intersect(array) ####
+
+Calculate and return a sorted intersection of two arrays. Uses Object.equals() to determine strict equality between the crossovers. This method can be chained to intersect multiple arrays, whilst keeping the code as efficient as possible.
+
+```
+var arr1 = [ 1, 2, 3 ],
+    arr2 = [ 1, 3, 5 ],
+    arr3 = [ 1, 4, 7 ];
+
+arr1.intersect(arr2);                   // [ 1, 3 ]
+arr1.intersect(arr2).intersect(arr3);   // [ 1 ]
 ```
 
 #### Array.isEmpty() ####
