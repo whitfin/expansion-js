@@ -141,6 +141,21 @@ var arr1 = [ "test1", "test2", "test3" ],
 arr1.normalize(arr2); // [ "test1", "test3" ];
 ```
 
+#### Array.remove(index[, amount, safe]) ####
+
+Handling to remove a given index from an array, or the ability to remove X elements at a given index. Also contains support for removing from multiple indexes, and multiple amounts. This method is destructive by default, however a third parameter of `true` can be passed to make this method non-destructive.
+
+```
+var arr = [ 1, 2, 3, 4, 5 ];
+
+arr.remove(1);                  // [ 1, 3, 4, 5 ]
+arr.remove(1, 2);               // [ 1, 4, 5 ]
+arr.remove(1, 1, true);         // [ 1, 2, 3, 4, 5 ]
+arr.remove([1, 3]);             // [ 1, 3, 5 ]
+arr.remove([1, 3], 2);          // [ 1 ]
+arr.remove([1, 3], [1, 2]);     // [ 1, 3 ]
+```
+
 #### Array.toLowerCase() ####
 
 Simply returns an array with all string values converted to lower case via `String#toLowerCase()`.

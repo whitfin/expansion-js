@@ -187,6 +187,47 @@ describe('Testing library prototypes of the Array object', function(){
 
 	});
 
+	describe('Validation of the \'remove()\' function', function(){
+
+		it('should remove an array element', function(next){
+			var arr1 = [ 1, 2 , 3],
+				arr2 = [ 1, 3 ];
+
+			assert.deepEqual(arr1.remove(), arr1);
+			assert.deepEqual(arr1.remove(1), arr2);
+			assert.deepEqual(arr1.remove(-1), arr1);
+			next();
+		});
+
+		it('should remove multiple values from an array', function(next){
+			var arr1 = [ 1, 2, 3 ],
+				arr2 = [ 1 ];
+
+			assert.deepEqual(arr1.remove(1, 2), arr2);
+			assert.deepEqual(arr1.remove(1, [2]), arr2);
+			next();
+		});
+
+		it('should remove multiple indices from an array', function(next){
+			var arr1 = [ 1, 2, 3, 4, 5],
+				arr2 = [ 1, 3, 5 ];
+
+			assert.deepEqual(arr1.remove([1, 3]), arr2);
+			next();
+		});
+
+		it('should remove multiple entries at multiple indices', function(next){
+			var arr1 = [ 1, 2, 3, 4, 5, 6, 7 ],
+				arr2 = [ 1, 4, 7 ];
+
+			assert.deepEqual(arr1.remove([1, 4], 2, true), arr2);
+			assert.deepEqual(arr1.remove([1, 4], [2, 2]), arr2);
+			assert.deepEqual(arr1, arr2);
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'toLowerCase()\' function', function(){
 
 		it('should convert an array of string to lower case', function(next){
