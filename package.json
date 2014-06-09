@@ -10,6 +10,7 @@
 		"type":"git",
 		"url":"http://github.com/iwhitfield/expansion-js.git"
 	},
+	"license":"MIT",
 	"readmeFilename":"README.md",
 	"keywords":[
 		"expansion-js",
