@@ -188,12 +188,41 @@ arr.unique();   // [ 1, 2, 3, 4, 5 ]
 
 ### Number ###
 
+#### Number.abbreviate([decimal) ####
+
+Returns a readable formatting of the number as a string for use with displayed outputs. Can take a number of decimal places to round to when shortening.
+
+```
+1000.abbreviate();          // 1K
+1000000.abbreviate();       // 1M
+1000000000.abbreviate();    // 1B
+1000000000000.abbreviate(); // 1T
+
+1111.abbreviate();          // 1.1K
+1111.abbreviate(2);         // 1.11K
+1199.abbreviate(2);         // 1.2K
+```
+
 #### Number.comma() ####
 
 Returns a number as a string with a comma (",") placed every 3 digits, as standard.
 
 ```
 1234567890.comma(); // 1,234,567,890
+```
+
+#### Number.inRange(min, max[, exclusive]) ####
+
+Checks to see whether the current value of the number is within a given range. Takes two parameters, `min` and `max`. You can supply null for either of these parameters to have a boundless range. Inclusive by default, however a third parameter can be passed to make the bounds exclusive.
+
+```
+500.inRange(1, 1000);           // true
+1000.inRange(1, 1000);          // true
+1001.inRange(1, 1000);          // false
+1000.inRange(1, 1000, true);    // false
+
+-50.inRange(null, 0);           // true
+999.inRange(0, null);           // true
 ```
 
 ### Object ###
