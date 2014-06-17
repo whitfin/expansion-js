@@ -27,6 +27,32 @@ describe('Testing library prototypes of the String object', function(){
 
 	});
 
+	describe('Validation of the \'contains()\' function', function(){
+
+		it('should return true if a string contains another', function(next){
+			assert("word".contains("o"));
+			next();
+		});
+
+		it('should return false if the string does not contain the substring', function(next){
+			assert(!("word".contains("zzz")));
+			next();
+		});
+
+		it('should validate case-sensitiveness', function(next){
+			assert(!("word".contains("O")));
+			next();
+		});
+
+		it('should handle blank, null or undefined cases properly', function(next){
+			assert("word".contains(""));
+			assert(!("word".contains(null)));
+			assert(!("word".contains(undefined)));
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'endsWith()\' function', function(){
 
 		it('should return true if the string ends correctly', function(next){
