@@ -127,6 +127,52 @@ describe('Testing library prototypes of the Object object', function(){
 
 	});
 
+	describe('Validation of the \'loopr()\' function', function(){
+
+		it('should loop single layered objects', function(next){
+			var i = 0,
+				keys = [ "a", "b", "c" ],
+				values = [ 5, 10, 15 ];
+
+			({ a:5, b:10, c:15 }).loopr(function(key, value){
+				assert.equal(key, keys[i]);
+				assert.equal(value, values[i++]);
+			});
+
+			next();
+		});
+
+		it('should loop objects recursively', function(next){
+			({ a:{ b:{ c:15 } } }).loopr(function(key, value, path){
+				assert.equal(key, "c");
+				assert.equal(value, 15);
+				assert.equal(path, "a.b.c");
+			});
+			({ a:{ b:{ "c.d":{ e:15 } } } }).loopr(function(key, value, path){
+				assert.equal(key, "e");
+				assert.equal(value, 15);
+				assert.equal(path, "a.b['c.d'].e");
+			});
+			next();
+		});
+
+		it('should handle the use of no function provided', function(next){
+			assert.equal(({ a:1, b:2, c:3 }).loopr(), null);
+			next();
+		});
+
+		it('should return a value when a return is used', function(next){
+			var key = ({ a:1, b:2, c:3 }).loopr(function(key, value){
+				if(value == 2){
+					return key;
+				}
+			});
+			assert.equal(key, "b");
+			next();
+		});
+
+	});
+
 	describe('Validation of the \'pretty()\' function', function(){
 
 		it('should pretty an object using 4 spaces', function(next){

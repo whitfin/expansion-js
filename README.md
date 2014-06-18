@@ -287,6 +287,34 @@ arr.instance();     // "Array"
 obj.instance();     // "Object"
 ```
 
+#### Object.loopr(handler[, key]) ####
+
+Recursively loops an object and processes as the user desires. Can take an optional key if the user has called on a nested object in order to create the valid dot notation. A returned value inside the handler will be returned and the processing will stop, otherwise returns null.
+
+```
+var obj = { a:{ b:5 }, c:10, d:15 };
+
+// Typical use
+obj.loopr(function(key, value){
+    console.log(key);       // b, c, d
+    console.log(value);     // 5, 10, 15
+});
+
+// Can print dot notation too
+obj.loopr(function(key, value, path){
+    console.log(path);      // a.b, c, d
+});
+
+// Returning a value, in this case obj.d is never processed
+var cValue = obj.loopr(function(key, value){
+    if(key == "c"){
+        return value;
+    }
+});
+
+console.log(cValue);    // 10
+```
+
 #### Object.pretty([indent]) ####
 
 Stringifies a number with a given indent. If no indent is given, it defaults to 4 spaces.
