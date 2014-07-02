@@ -18,7 +18,7 @@
 	],
 	"scripts": {
 		"coverage":"rm -f coverage.html && mocha -r blanket -R html-cov test > coverage.html",
-		"test":"node test.js spec; node test.js | ./node_modules/coveralls/bin/coveralls.js"
+		"test":"node test.js spec && node test.js | ./node_modules/coveralls/bin/coveralls.js"
 	},
 	"devDependencies":{
 		"blanket":"*",
