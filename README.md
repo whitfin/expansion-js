@@ -296,9 +296,25 @@ arr.instance();     // "Array"
 obj.instance();     // "Object"
 ```
 
+#### Object.loop(handler) ####
+
+Loops the top-level keys of an object, passing the <key, value> pair to a passed in handler. A value can be returned from within the handling function, and will be passed back through the call stack.
+
+```
+var obj = { a:{ b:5 }, c:10, d:15 };
+
+var cValue = obj.loop(function(key, value){
+    if(key == "c"){
+        return value;
+    }
+});
+
+console.log(cValue);    // 10
+```
+
 #### Object.loopr(handler[, key]) ####
 
-Recursively loops an object and processes as the user desires. Can take an optional key if the user has called on a nested object in order to create the valid dot notation. A returned value inside the handler will be returned and the processing will stop, otherwise returns null.
+Recursive form of `Object.loop()`. Can take an optional key if the user has called on a nested object in order to create the valid dot notation. A returned value inside the handler will be returned and the processing will stop.
 
 ```
 var obj = { a:{ b:5 }, c:10, d:15 };

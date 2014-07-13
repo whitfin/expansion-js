@@ -115,18 +115,45 @@ describe('Object', function(){
 
     });
 
-    describe('\b.loopr()', function(){
+    describe('\b.loop()', function(){
 
         it('loops single level objects', function(){
             var i = 0,
                 keys = [ "a", "b", "c" ],
                 values = [ 5, 10, 15 ];
 
-            ({ a:5, b:10, c:15 }).loopr(function(key, value){
+            ({ a:5, b:10, c:15 }).loop(function(key, value){
                 assert.equal(key, keys[i]);
                 assert.equal(value, values[i++]);
             });
         });
+
+        it('can loop array objects', function(){
+            var i = 0,
+                arr = [ 1, 2, 3 ];
+
+            arr.loop(function(key, value){
+                assert.equal(i, key);
+                assert.equal(arr[i++], value);
+            });
+        });
+
+        it('returns if no handler is provided', function(){
+            assert.equal(({ a:1, b:2, c:3 }).loop(), undefined);
+        });
+
+        it('is able to return values from a closure', function(){
+            var key = ({ a:1, b:2, c:3 }).loop(function(key, value){
+                if(value == 2){
+                    return key;
+                }
+            });
+            assert.equal(key, "b");
+        });
+
+    });
+
+    describe('\b.loopr()', function(){
 
         it('recursively loops objects', function(){
             ({ a:{ b:{ c:15 } } }).loopr(function(key, value, path){
@@ -141,8 +168,18 @@ describe('Object', function(){
             });
         });
 
-        it('returns null if no handler is provided', function(){
-            assert.equal(({ a:1, b:2, c:3 }).loopr(), null);
+        it('can loop array objects', function(){
+            var i = 0,
+                arr = [ 1, 2, 3 ];
+
+            arr.loop(function(key, value){
+                assert.equal(i, key);
+                assert.equal(arr[i++], value);
+            });
+        });
+
+        it('returns if no handler is provided', function(){
+            assert.equal(({ a:1, b:2, c:3 }).loopr(), undefined);
         });
 
         it('is able to return values from a closure', function(){
