@@ -239,4 +239,52 @@ describe('Testing library prototypes of the Object object', function(){
 
 	});
 
+    describe('Validation of the \'validate()\' function', function(){
+
+        it('should validate a base object', function(next){
+            var obj  = { a:1, b:{ c:2, d:"3" } },
+                pass = { a:"Number", b:{ c:"Number", d:"String" } },
+                fail = { a:"String", b:{ c:"Number", d:"String" } };
+
+            assert( obj.validate(null));
+            assert( obj.validate(pass));
+            assert(!obj.validate(fail));
+            next();
+        });
+
+        it('should skip values without a corresponding validation', function(next){
+            var obj = { a: 1, b:{ c: null } },
+                expected = { a:"Number" };
+
+            assert(obj.validate(expected));
+            next();
+        });
+
+        it('should be able to validate undefined values', function(next){
+            var obj  = { a:null, b:undefined },
+                pass = { a:"Null", b:"Undefined" },
+                fail = { a:"Undefined", b:"Null" };
+
+            assert( obj.validate(pass));
+            assert(!obj.validate(fail));
+
+            obj  = { a:undefined };
+            fail = { a:"Null" };
+
+            assert(!obj.validate(fail));
+            next();
+        });
+
+        it('should validate a generic object', function(next){
+            var obj  = { a: 1, b:{ c: null } },
+                pass = { a:"Number", b:"Object" },
+                fail = { a:"Number", b:"Number" };
+
+            assert( obj.validate(pass));
+            assert(!obj.validate(fail));
+            next();
+        });
+
+    });
+
 });

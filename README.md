@@ -359,6 +359,50 @@ obj.sort();
 */
 ```
 
+#### Object.validate(validation) ####
+
+Allows validation of an object against a given schema. Takes a validation object to validate value types against. Allows for null and undefined values, returns true if validation was made.
+
+If a key existing in the object is missing from the validation object, it automatically passes the validation.
+
+```
+var obj = { a:1, b:'2', c:{ d:new Date(), e:null, f:undefined } };
+
+// true
+obj.validate({
+    a:'number',
+    b:'string',
+    c:'object'
+});
+
+// true
+obj.validate({
+    a:'number',
+    b:'string',
+    c:{
+        d:'Date',
+        e:'null',
+        f:'undefined'
+    }
+});
+
+// true
+obj.validate({
+    c:'object'
+});
+
+// false
+obj.validate({
+    a:'string',
+    b:'number',
+    c:{
+        d:'Date',
+        e:'null',
+        f:'undefined'
+    }
+});
+```
+
 ### String ###
 
 #### String.capitalize([pattern]) ####
