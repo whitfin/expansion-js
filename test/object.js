@@ -2,7 +2,7 @@ var assert = require('assert');
 
 describe('Object', function(){
 
-    describe('.\bclone()', function(){
+    describe('\b.clone()', function(){
 
         it('clones and object', function(){
             var arr1 = [ "test1", "test2", "test3" ],
