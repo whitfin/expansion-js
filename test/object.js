@@ -1,266 +1,239 @@
 var assert = require('assert');
 
-describe('Testing library prototypes of the Object object', function(){
+describe('Object', function(){
 
-	describe('Validation of the \'clone()\' function', function(){
+    describe('.\bclone()', function(){
 
-		it('should return a clone of an object', function(next){
-			var arr1 = [ "test1", "test2", "test3" ],
-				obj1 = { a:1, b:2, c:3 };
+        it('clones and object', function(){
+            var arr1 = [ "test1", "test2", "test3" ],
+                obj1 = { a:1, b:2, c:3 };
 
-			var arr2 = arr1.clone(),
-				obj2 = obj1.clone();
+            var arr2 = arr1.clone(),
+                obj2 = obj1.clone();
 
-			arr2[0] = "test-clone";
-			obj2.a = "1";
+            arr2[0] = "test-clone";
+            obj2.a = "1";
 
-			assert.deepEqual(arr2, [ "test-clone", "test2", "test3" ]);
-			assert.deepEqual(obj2, { a:"1", b:2, c:3 });
-			next();
-		});
+            assert.deepEqual(arr2, [ "test-clone", "test2", "test3" ]);
+            assert.deepEqual(obj2, { a:"1", b:2, c:3 });
+        });
 
-		it('should clone an object recursively', function(next){
-			var obj = { a:5, b:"5", c:{ d:[ 1, { "value" : 2 }, 3 ], e:null, f:undefined } };
+        it('recursively clones an object', function(){
+            var obj = { a:5, b:"5", c:{ d:[ 1, { "value" : 2 }, 3 ], e:null, f:undefined } };
 
-			assert.deepEqual(obj.clone(), obj);
-			next();
-		});
+            assert.deepEqual(obj.clone(), obj);
+        });
 
-		it('should properly clone a Date and Function', function(next){
-			var clone = { a:{ b:{ c:function(){ return 5; } } } }.clone(),
-				time1 = Date.now(),
-				time2 =  Date.now() + 8640000,
-				date1 = new Date(time1),
-				date2 = date1.clone().setTime(time2);
+        it('clones a Date and Function', function(){
+            var clone = { a:{ b:{ c:function(){ return 5; } } } }.clone(),
+                time1 = Date.now(),
+                time2 =  Date.now() + 8640000,
+                date1 = new Date(time1),
+                date2 = date1.clone().setTime(time2);
 
-			assert.equal(clone.a.b.c(), 5);
-			assert.equal(date1.valueOf(), time1);
-			assert.equal(date2.valueOf(), time2);
-			next();
-		});
+            assert.equal(clone.a.b.c(), 5);
+            assert.equal(date1.valueOf(), time1);
+            assert.equal(date2.valueOf(), time2);
+        });
 
-		it('should properly clone a non-native Object', function(next){
-			function Car(desc){
-				this.desc = desc;
-			}
+        it('is able to handle non-native Object types', function(){
+            function Car(desc){
+                this.desc = desc;
+            }
 
-			var car1 = new Car('honda'),
-				car2 = car1.clone(),
-				car3 = car1.clone();
+            var car1 = new Car('honda'),
+                car2 = car1.clone(),
+                car3 = car1.clone();
 
-			car3.desc = 'toyota';
+            car3.desc = 'toyota';
 
-			assert.deepEqual(car2, car1);
-			assert.deepEqual(car1.desc, 'honda');
-			assert.deepEqual(car3.desc, 'toyota');
-			next();
-		});
+            assert.deepEqual(car2, car1);
+            assert.deepEqual(car1.desc, 'honda');
+            assert.deepEqual(car3.desc, 'toyota');
+        });
 
-	});
+    });
 
-	describe('Validation of the \'equals()\' function', function(){
+    describe('\b.equals()', function(){
 
-		it('should compare objects without strict comparison', function(next){
-			assert([ 5, 5 ].equals([ 5, 5 ], true));
-			assert([ 5, "5" ].equals([ 5, 5 ], true));
-			assert({ a:5, b:5 }.equals({ a:5, b:5 }, true));
-			assert({ a:5, b:"5" }.equals({ a:5, b:5 }, true));
-			next();
-		});
+        it('uses the equality operator to compare objects', function(){
+            assert([ 5, 5 ].equals([ 5, 5 ], true));
+            assert([ 5, "5" ].equals([ 5, 5 ], true));
+            assert({ a:5, b:5 }.equals({ a:5, b:5 }, true));
+            assert({ a:5, b:"5" }.equals({ a:5, b:5 }, true));
+        });
 
-		it('should compare objects using strict comparison', function(next){
-			assert([ 5, 5 ].equals([ 5, 5 ]));
-			assert(![ 5, "5" ].equals([ 5, 5 ]));
-			assert({ a:5, b:5 }.equals({ a:5, b:5 }));
-			assert(!({ a:5, b:"5" }.equals({ a:5, b:5 })));
-			next();
-		});
+        it('uses the identity operator to compare objects', function(){
+            assert([ 5, 5 ].equals([ 5, 5 ]));
+            assert(![ 5, "5" ].equals([ 5, 5 ]));
+            assert({ a:5, b:5 }.equals({ a:5, b:5 }));
+            assert(!({ a:5, b:"5" }.equals({ a:5, b:5 })));
+        });
 
-		it('should compare objects recursively without strict comparison', function(next){
-			assert([ 5, { c:5 } ].equals([ 5, { c:5 } ], true));
-			assert([ 5, { c:5 } ].equals([ 5, { c:5 } ], true));
-			assert({ a:5, b:{ c:5 } }.equals({ a:5, b:{ c:5 } }, true));
-			assert({ a:5, b:{ c:"5" } }.equals({ a:5, b:{ c:5 } }, true));
-			next();
-		});
+        it('recursively compares objects using the equality operator', function(){
+            assert([ 5, { c:5 } ].equals([ 5, { c:5 } ], true));
+            assert([ 5, { c:5 } ].equals([ 5, { c:5 } ], true));
+            assert({ a:5, b:{ c:5 } }.equals({ a:5, b:{ c:5 } }, true));
+            assert({ a:5, b:{ c:"5" } }.equals({ a:5, b:{ c:5 } }, true));
+        });
 
-		it('should compare objects recursively using strict comparison', function(next){
-			assert([ 5, { c:5 } ].equals([ 5, { c:5 } ]));
-			assert(![ 5, { c:"5" } ].equals([ 5, { c:5 } ]));
-			assert({ a:5, b:{ c:5 } }.equals({ a:5, b:{ c:5 } }));
-			assert(!({ a:5, b:{ c:"5" } }.equals({ a:5, b:{ c:5 } })));
-			next();
-		});
+        it('recursively compares objects using the identity operator', function(){
+            assert([ 5, { c:5 } ].equals([ 5, { c:5 } ]));
+            assert(![ 5, { c:"5" } ].equals([ 5, { c:5 } ]));
+            assert({ a:5, b:{ c:5 } }.equals({ a:5, b:{ c:5 } }));
+            assert(!({ a:5, b:{ c:"5" } }.equals({ a:5, b:{ c:5 } })));
+        });
 
-	});
+    });
 
-	describe('Validation of the \'instance()\' function', function(){
+    describe('\b.instance()', function(){
 
-		it('should return primitive types', function(next){
-			assert.equal((1).instance(), "Number");
-			assert.equal("1".instance(), "String");
-			assert.equal(true.instance(), "Boolean");
-			next();
-		});
+        it('handles primitive types', function(){
+            assert.equal((1).instance(), "Number");
+            assert.equal("1".instance(), "String");
+            assert.equal(true.instance(), "Boolean");
+        });
 
-		it('should return composite types', function(next){
-			assert.equal([].instance(), "Array");
-			assert.equal({}.instance(), "Object");
-			next();
-		});
+        it('handles composite types', function(){
+            assert.equal([].instance(), "Array");
+            assert.equal({}.instance(), "Object");
+        });
 
-		it('should return various object types', function(next){
-			assert.equal(new Date().instance(), "Date");
-			assert.equal(new Error().instance(), "Error");
-			assert.equal(new RegExp().instance(), "RegExp");
-			next();
-		});
+        it('handles native types', function(){
+            assert.equal(new Date().instance(), "Date");
+            assert.equal(new Error().instance(), "Error");
+            assert.equal(new RegExp().instance(), "RegExp");
+        });
 
-		it('should return various custom object types', function(next){
-			var funk;
-			assert.equal((funk = function Cat(){}, new funk().instance()), "Cat");
-			assert.equal((funk = function Hat(){}, new funk().instance()), "Hat");
-			assert.equal((funk = function Mat(){}, new funk().instance()), "Mat");
-			assert.equal((funk = function Rat(){}, new funk().instance()), "Rat");
-			next();
-		});
+        it('handles user defined types', function(){
+            var funk;
+            assert.equal((funk = function Cat(){}, new funk().instance()), "Cat");
+            assert.equal((funk = function Hat(){}, new funk().instance()), "Hat");
+            assert.equal((funk = function Mat(){}, new funk().instance()), "Mat");
+            assert.equal((funk = function Rat(){}, new funk().instance()), "Rat");
+        });
 
-	});
+    });
 
-	describe('Validation of the \'loopr()\' function', function(){
+    describe('\b.loopr()', function(){
 
-		it('should loop single layered objects', function(next){
-			var i = 0,
-				keys = [ "a", "b", "c" ],
-				values = [ 5, 10, 15 ];
+        it('loops single level objects', function(){
+            var i = 0,
+                keys = [ "a", "b", "c" ],
+                values = [ 5, 10, 15 ];
 
-			({ a:5, b:10, c:15 }).loopr(function(key, value){
-				assert.equal(key, keys[i]);
-				assert.equal(value, values[i++]);
-			});
+            ({ a:5, b:10, c:15 }).loopr(function(key, value){
+                assert.equal(key, keys[i]);
+                assert.equal(value, values[i++]);
+            });
+        });
 
-			next();
-		});
+        it('recursively loops objects', function(){
+            ({ a:{ b:{ c:15 } } }).loopr(function(key, value, path){
+                assert.equal(key, "c");
+                assert.equal(value, 15);
+                assert.equal(path, "a.b.c");
+            });
+            ({ a:{ b:{ "c.d":{ e:15 } } } }).loopr(function(key, value, path){
+                assert.equal(key, "e");
+                assert.equal(value, 15);
+                assert.equal(path, "a.b['c.d'].e");
+            });
+        });
 
-		it('should loop objects recursively', function(next){
-			({ a:{ b:{ c:15 } } }).loopr(function(key, value, path){
-				assert.equal(key, "c");
-				assert.equal(value, 15);
-				assert.equal(path, "a.b.c");
-			});
-			({ a:{ b:{ "c.d":{ e:15 } } } }).loopr(function(key, value, path){
-				assert.equal(key, "e");
-				assert.equal(value, 15);
-				assert.equal(path, "a.b['c.d'].e");
-			});
-			next();
-		});
+        it('returns null if no handler is provided', function(){
+            assert.equal(({ a:1, b:2, c:3 }).loopr(), null);
+        });
 
-		it('should handle the use of no function provided', function(next){
-			assert.equal(({ a:1, b:2, c:3 }).loopr(), null);
-			next();
-		});
+        it('is able to return values from a closure', function(){
+            var key = ({ a:1, b:2, c:3 }).loopr(function(key, value){
+                if(value == 2){
+                    return key;
+                }
+            });
+            assert.equal(key, "b");
+        });
 
-		it('should return a value when a return is used', function(next){
-			var key = ({ a:1, b:2, c:3 }).loopr(function(key, value){
-				if(value == 2){
-					return key;
-				}
-			});
-			assert.equal(key, "b");
-			next();
-		});
+    });
 
-	});
+    describe('\b.pretty()', function(){
 
-	describe('Validation of the \'pretty()\' function', function(){
+        it('uses 4 spaces to pretty an object', function(){
+            assert.equal([ "a", "b", "c" ].pretty('    '), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
+            assert.equal({ a:1, b:2, c:3 }.pretty('    '), "{\n    \"a\": 1,\n    \"b\": 2,\n    \"c\": 3\n}");
+        });
 
-		it('should pretty an object using 4 spaces', function(next){
-			assert.equal([ "a", "b", "c" ].pretty('    '), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
-			assert.equal({ a:1, b:2, c:3 }.pretty('    '), "{\n    \"a\": 1,\n    \"b\": 2,\n    \"c\": 3\n}");
-			next();
-		});
+        it('uses a tab to pretty an object', function(){
+            assert.equal([ "a", "b", "c" ].pretty("\t"), "[\n\t\"a\",\n\t\"b\",\n\t\"c\"\n]");
+            assert.equal({ a:1, b:2, c:3 }.pretty("\t"), "{\n\t\"a\": 1,\n\t\"b\": 2,\n\t\"c\": 3\n}");
+        });
 
-		it('should pretty an object using a tab', function(next){
-			assert.equal([ "a", "b", "c" ].pretty("\t"), "[\n\t\"a\",\n\t\"b\",\n\t\"c\"\n]");
-			assert.equal({ a:1, b:2, c:3 }.pretty("\t"), "{\n\t\"a\": 1,\n\t\"b\": 2,\n\t\"c\": 3\n}");
-			next();
-		});
+        it('compacts an object when an empty string is passed', function(){
+            assert.equal([ "a", "b", "c" ].pretty(""), JSON.stringify([ "a", "b", "c" ]));
+            assert.equal({ a:1, b:2, c:3 }.pretty(""), JSON.stringify({ a:1, b:2, c:3 }));
+        });
 
-		it('should not pretty an object when an empty string is passed', function(next){
-			assert.equal([ "a", "b", "c" ].pretty(""), JSON.stringify([ "a", "b", "c" ]));
-			assert.equal({ a:1, b:2, c:3 }.pretty(""), JSON.stringify({ a:1, b:2, c:3 }));
-			next();
-		});
+        it('defaults to using 4 spaces', function(){
+            assert.equal([ "a", "b", "c" ].pretty(), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
+            assert.equal({ a:1, b:2, c:3 }.pretty(), "{\n    \"a\": 1,\n    \"b\": 2,\n    \"c\": 3\n}");
+            assert.equal([ "a", "b", "c" ].pretty(null), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
+            assert.equal({ a:1, b:2, c:3 }.pretty(null), "{\n    \"a\": 1,\n    \"b\": 2,\n    \"c\": 3\n}");
+        });
 
-		it('should pretty an object using 4 spaces when passing null or undefined', function(next){
-			assert.equal([ "a", "b", "c" ].pretty(), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
-			assert.equal({ a:1, b:2, c:3 }.pretty(), "{\n    \"a\": 1,\n    \"b\": 2,\n    \"c\": 3\n}");
-			assert.equal([ "a", "b", "c" ].pretty(null), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
-			assert.equal({ a:1, b:2, c:3 }.pretty(null), "{\n    \"a\": 1,\n    \"b\": 2,\n    \"c\": 3\n}");
-			next();
-		});
+    });
 
-	});
+    describe('\b.sort()', function(){
 
-	describe('Validation of the \'sort()\' function', function(){
+        it('sorts an object by key', function(){
+            var obj = { b:{ b:2, a:1 }, a:2, c:3 },
+                expected = JSON.stringify({ a:2, b:{ b:2, a:1 }, c:3 });
 
-		it('should sort an object by key', function(next){
-			var obj = { b:{ b:2, a:1 }, a:2, c:3 },
-				expected = JSON.stringify({ a:2, b:{ b:2, a:1 }, c:3 });
+            assert.equal(JSON.stringify(obj.sort(true)), expected);
+        });
 
-			assert.equal(JSON.stringify(obj.sort(true)), expected);
-			next();
-		});
+        it('handles null values', function(){
+            var obj = { a: 1, b:{ c: null } },
+                expected = JSON.stringify({ a: 1, b:{ c: null } });
 
-		it('should handle null values', function(next){
-			var obj = { a: 1, b:{ c: null } },
-				expected = JSON.stringify({ a: 1, b:{ c: null } });
+            assert.equal(JSON.stringify(obj.sort(false)), expected);
+        });
 
-			assert.equal(JSON.stringify(obj.sort(false)), expected);
-			next();
-		});
+        it('recursively sorts an object', function(){
+            var obj = { b:{ b:2, a:1 }, a:2, c:3 },
+                expected = JSON.stringify({ a:2, b:{ a:1, b:2 }, c:3 });
 
-		it('should sort an object by key recursively', function(next){
-			var obj = { b:{ b:2, a:1 }, a:2, c:3 },
-				expected = JSON.stringify({ a:2, b:{ a:1, b:2 }, c:3 });
+            assert.equal(JSON.stringify(obj.sort(false)), expected);
+        });
 
-			assert.equal(JSON.stringify(obj.sort(false)), expected);
-			next();
-		});
+        it('does not sort arrays', function(){
+            var obj = { b:{ b:2, a:[ 1, 2, 3 ] }, a:2, c:3 },
+                expected = JSON.stringify({ a:2, b:{ a:[ 1, 2, 3], b:2 }, c:3 });
 
-		it('should ignore arrays when sorting', function(next){
-			var obj = { b:{ b:2, a:[ 1, 2, 3 ] }, a:2, c:3 },
-				expected = JSON.stringify({ a:2, b:{ a:[ 1, 2, 3], b:2 }, c:3 });
+            assert.equal(JSON.stringify(obj.sort(false)), expected);
+        });
 
-			assert.equal(JSON.stringify(obj.sort(false)), expected);
-			next();
-		});
+    });
 
-	});
+    describe('\b.validate()', function(){
 
-    describe('Validation of the \'validate()\' function', function(){
-
-        it('should validate a base object', function(next){
+        it('compares a base object with a schema', function(){
             var obj  = { a:1, b:{ c:2, d:"3" } },
                 pass = { a:"Number", b:{ c:"Number", d:"String" } },
-                fail = { a:"String", b:{ c:"Number", d:"String" } };
+                fail = { a:"Number", b:{ c:"String", d:"String" } };
 
             assert( obj.validate(null));
             assert( obj.validate(pass));
             assert(!obj.validate(fail));
-            next();
         });
 
-        it('should skip values without a corresponding validation', function(next){
+        it('passes objects with no validation key', function(){
             var obj = { a: 1, b:{ c: null } },
                 expected = { a:"Number" };
 
             assert(obj.validate(expected));
-            next();
         });
 
-        it('should be able to validate undefined values', function(next){
+        it('is able to handle undefined values', function(){
             var obj  = { a:null, b:undefined },
                 pass = { a:"Null", b:"Undefined" },
                 fail = { a:"Undefined", b:"Null" };
@@ -272,17 +245,15 @@ describe('Testing library prototypes of the Object object', function(){
             fail = { a:"Null" };
 
             assert(!obj.validate(fail));
-            next();
         });
 
-        it('should validate a generic object', function(next){
+        it('validates an object with no nest', function(){
             var obj  = { a: 1, b:{ c: null } },
                 pass = { a:"Number", b:"Object" },
                 fail = { a:"Number", b:"Number" };
 
             assert( obj.validate(pass));
             assert(!obj.validate(fail));
-            next();
         });
 
     });

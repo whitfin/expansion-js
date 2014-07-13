@@ -1,112 +1,98 @@
 var assert = require('assert');
 
-describe('Testing library prototypes of the String object', function(){
+describe('String', function(){
 
-	describe('Validation of the \'capitalize()\' function', function(){
+    describe('\b.capitalize()', function(){
 
-		it('should capitalize a single word', function(next){
-			assert.equal("word".capitalize(), "Word");
-			next();
-		});
+        it('is able to capitalize a single word', function(){
+            assert.equal("word".capitalize(), "Word");
+        });
 
-		it('should capitalize only the first word in a string', function(next){
-			assert.equal("word in a string".capitalize(), "Word in a string");
-			next();
-		});
+        it('only capitalizes the first word in a string', function(){
+            assert.equal("word in a string".capitalize(), "Word in a string");
+        });
 
-		it('should capitalize every word in a string', function(next){
-			assert.equal("word in a string".capitalize('a'), "Word In A String");
-			next();
-		});
+        it('can capitalize every word in a string', function(){
+            assert.equal("word in a string".capitalize('a'), "Word In A String");
+        });
 
-		it('should capitalize the first word in each sentence in a string', function(next){
-			assert.equal("word in a string. word in a second string".capitalize('s'),
-						 "Word in a string. Word in a second string");
-			next();
-		});
+        it('starts every sentence in a string with a capital', function(){
+            assert.equal("word in a string. word in a second string".capitalize('s'),
+                         "Word in a string. Word in a second string");
+        });
 
-	});
+    });
 
-	describe('Validation of the \'contains()\' function', function(){
+    describe('\b.contains', function(){
 
-		it('should return true if a string contains another', function(next){
-			assert("word".contains("o"));
-			next();
-		});
+        it('validates if a string contains another', function(){
+            assert("word".contains("o"));
+        });
 
-		it('should return false if the string does not contain the substring', function(next){
-			assert(!("word".contains("zzz")));
-			next();
-		});
+        it('can validate if a string does not contain another', function(){
+            assert(!("word".contains("zzz")));
+        });
 
-		it('should validate case-sensitiveness', function(next){
-			assert(!("word".contains("O")));
-			next();
-		});
+        it('is case-sensitive', function(){
+            assert(!("word".contains("O")));
+        });
 
-		it('should handle blank, null or undefined cases properly', function(next){
-			assert("word".contains(""));
-			assert(!("word".contains(null)));
-			assert(!("word".contains(undefined)));
-			next();
-		});
+        it('handles blank, null or undefined cases', function(){
+            assert("word".contains(""));
+            assert(!("word".contains(null)));
+            assert(!("word".contains(undefined)));
+        });
 
-	});
+    });
 
-	describe('Validation of the \'endsWith()\' function', function(){
+    describe('\b.endsWith', function(){
 
-		it('should return true if the string ends correctly', function(next){
-			assert("This is a string".endsWith("string"));
-			assert("123456789".endsWith("789"));
-			next();
-		});
+        it('validates the ending of a string', function(){
+            assert("This is a string".endsWith("string"));
+            assert("123456789".endsWith("789"));
+        });
 
-		it('should return false if the string doesn\'t end correctly', function(next){
-			assert(!("This is a string".endsWith("test")));
-			assert(!("123456789".endsWith("123")));
-			next();
-		});
+        it('returns false if a string doesn\'t end with a given string', function(){
+            assert(!("This is a string".endsWith("test")));
+            assert(!("123456789".endsWith("123")));
+        });
 
-		it('should validate case-sensitiveness', function(next){
-			assert("This is a string".endsWith("string"));
-			assert(!("This Is A String".endsWith("string")));
-			next();
-		});
+        it('is case-sensitive', function(){
+            assert("This is a string".endsWith("string"));
+            assert(!("This Is A String".endsWith("string")));
+        });
 
-		it('should handle empty or null strings', function(next){
-			assert("".endsWith(""));
-			assert(!("".endsWith(null)));
-			next();
-		});
+        it('handles blank, null or undefined cases', function(){
+            assert("".endsWith(""));
+            assert(!("".endsWith(null)));
+            assert(!("".endsWith(undefined)));
+        });
 
-	});
+    });
 
-	describe('Validation of the \'startsWith()\' function', function(){
+    describe('\b.startsWith', function(){
 
-		it('should return true if the string starts correctly', function(next){
-			assert("This is a string".startsWith("This"));
-			assert("123456789".startsWith("123"));
-			next();
-		});
+        it('validates the start of a string', function(){
+            assert("This is a string".startsWith("This"));
+            assert("123456789".startsWith("123"));
+        });
 
-		it('should return false if the string doesn\'t starts correctly', function(next){
-			assert(!("This is a string".startsWith("test")));
-			assert(!("123456789".startsWith("789")));
-			next();
-		});
+        it('returns false if a string doesn\'t start with a given string', function(){
+            assert(!("This is a string".startsWith("test")));
+            assert(!("123456789".startsWith("789")));
+        });
 
-		it('should validate case-sensitiveness', function(next){
-			assert("This is a string".startsWith("This"));
-			assert(!("This Is A String".startsWith("this")));
-			next();
-		});
+        it('is case-sensitive', function(){
+            assert("This is a string".startsWith("This"));
+            assert(!("This Is A String".startsWith("this")));
+        });
 
-		it('should handle empty or null strings', function(next){
-			assert("".startsWith(""));
-			assert(!("".startsWith(null)));
-			next();
-		});
+        it('handles blank, null or undefined cases', function(){
+            assert("".startsWith(""));
+            assert(!("".startsWith(null)));
+            assert(!("".endsWith(undefined)));
+        });
 
-	});
+    });
 
 });
