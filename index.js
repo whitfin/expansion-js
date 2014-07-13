@@ -10,18 +10,18 @@ var fs = require('fs');
  * @param properties	the properties of your prototype
  */
 exports.add = exports.create = function(proto, key, value, properties){
-	// Make sure we have some properties
-	if(typeof properties != "object"){
-		properties = {};
-	}
-	// Add the value to the properties
-	properties['value'] = value;
-	// Prototype the key/value
-	Object.defineProperties((proto == 'global' ? global : proto.prototype), (function(){
-		var props = {};
-		props[key] = properties;
-		return props;
-	})());
+    // Make sure we have some properties
+    if(typeof properties != "object"){
+        properties = {};
+    }
+    // Add the value to the properties
+    properties['value'] = value;
+    // Prototype the key/value
+    Object.defineProperties((proto == 'global' ? global : proto.prototype), (function(){
+        var props = {};
+        props[key] = properties;
+        return props;
+    })());
 };
 
 /**
@@ -32,26 +32,26 @@ exports.add = exports.create = function(proto, key, value, properties){
  * @param key			the key of the prototype to remove
  */
 exports.delete = exports.remove = function(proto, key){
-	// Delete the prototype
-	delete proto.prototype[key];
+    // Delete the prototype
+    delete proto.prototype[key];
 };
 
 /**
  * Require in all the default prototyping including in this lib.
  */
 (addFiles = function(dir){
-	// Read the lib directory
-	fs.readdirSync(dir).filter(function(file){
-		// Detect if the value is a directory
-		if(fs.statSync(dir + '/' + file).isDirectory()){
-			// Recursively add the files
-			addFiles(dir + '/' + file);
-		}
-		// Add all javascript files
-		return file.substr(-3) === '.js';
-		// For each file we're accepting
-	}).forEach(function(file){
-		// Require in the file
-		require(dir + '/' + file);
-	});
+    // Read the lib directory
+    fs.readdirSync(dir).filter(function(file){
+        // Detect if the value is a directory
+        if(fs.statSync(dir + '/' + file).isDirectory()){
+            // Recursively add the files
+            addFiles(dir + '/' + file);
+        }
+        // Add all javascript files
+        return file.substr(-3) === '.js';
+        // For each file we're accepting
+    }).forEach(function(file){
+        // Require in the file
+        require(dir + '/' + file);
+    });
 })(__dirname + "/lib");

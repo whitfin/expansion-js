@@ -1,39 +1,39 @@
 {
-	"name":"expansion",
-	"version":"0.1.0",
-	"description":"Expansion upon native components to create a more flexible environment",
-	"author":{
-		"name":"Isaac Whitfield",
-		"email":"iwhitfield@appcelerator.com"
-	},
-	"repository":{
-		"type":"git",
-		"url":"http://github.com/iwhitfield/expansion-js.git"
-	},
-	"license":"MIT",
-	"readmeFilename":"README.md",
-	"keywords":[
-		"expansion-js",
-		"prototype"
-	],
-	"scripts": {
-		"coverage":"rm -f coverage.html && mocha -r blanket -R html-cov test > coverage.html",
-		"test":"node test.js spec && node test.js | ./node_modules/coveralls/bin/coveralls.js"
-	},
-	"devDependencies":{
-		"blanket":"*",
-		"coveralls": "*",
-		"mocha":"*",
-		"mocha-lcov-reporter": "0.0.1"
-	},
-	"config": {
-		"blanket":{
-			"pattern":[
-				"lib/array.js",
-				"lib/number.js",
-				"lib/object.js",
-				"lib/string.js"
-			]
-		}
-	}
+    "name":"expansion",
+    "version":"0.1.0",
+    "description":"Expansion upon native components to create a more flexible environment",
+    "author":{
+        "name":"Isaac Whitfield",
+        "email":"iwhitfield@appcelerator.com"
+    },
+    "repository":{
+        "type":"git",
+        "url":"http://github.com/iwhitfield/expansion-js.git"
+    },
+    "license":"MIT",
+    "readmeFilename":"README.md",
+    "keywords":[
+        "expansion-js",
+        "prototype"
+    ],
+    "scripts": {
+        "coverage":"rm -f coverage.html && mocha -r blanket -R html-cov test > coverage.html",
+        "test":"node test.js spec && node test.js | ./node_modules/coveralls/bin/coveralls.js"
+    },
+    "devDependencies":{
+        "blanket":"*",
+        "coveralls": "*",
+        "mocha":"*",
+        "mocha-lcov-reporter": "0.0.1"
+    },
+    "config": {
+        "blanket":{
+            "pattern":[
+                "lib/array.js",
+                "lib/number.js",
+                "lib/object.js",
+                "lib/string.js"
+            ]
+        }
+    }
 }
