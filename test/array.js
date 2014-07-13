@@ -1,329 +1,309 @@
 var assert = require('assert');
 
-describe('Testing library prototypes of the Array object', function(){
+describe('Array', function(){
 
-	describe('Validation of the \'insert()\' function', function(){
+    describe('\b.contains()', function(){
 
-		it('should insert a value at a given index', function(next){
-			var arr1 = [ 1, 3 ],
-				arr2 = [ 1, 2, 3 ];
+        it('validates an element exists', function(){
+            var arr = [ 1, 3 ];
 
-			assert.deepEqual(arr1.insert(1, 2), arr2);
-			next();
-		});
+            assert(arr.contains(1));
+        });
 
-		it('should insert multiple values at a given index', function(next){
-			var arr1 = [ 1, 5 ],
-				arr2 = [ 1, 2, 3, 4, 5 ];
+        it('validates an element doesn\'t exist', function(){
+            var arr = [ 1, 3 ];
 
-			assert.deepEqual(arr1.insert(1, 2, 3, 4), arr2);
-			next();
-		});
+            assert(!arr.contains(2));
+        });
 
-		it('should append if a index above the length is given', function(next){
-			var arr1 = [ 1 ],
-				arr2 = [ 1, 2 ];
+    });
 
-			assert.deepEqual(arr1.insert(1, 2), arr2);
-			assert.deepEqual(arr1.insert(10, 3), (arr2.push(3), arr2));
-			next();
-		});
+    describe('\b.insert()', function(){
 
-		it('should handle a case where a merge index is negative', function(next){
-			var arr1 = [ 1 ],
-				arr2 = [ 0 , 1 ];
+        it('inserts a value at an index', function(){
+            var arr1 = [ 1, 3 ],
+                arr2 = [ 1, 2, 3 ];
 
-			assert.deepEqual(arr1.insert(-1, 0), arr2);
-			next();
-		});
+            assert.deepEqual(arr1.insert(1, 2), arr2);
+        });
 
-	});
+        it('can insert multiple values at an index', function(){
+            var arr1 = [ 1, 5 ],
+                arr2 = [ 1, 2, 3, 4, 5 ];
 
-	describe('Validation of the \'intersect()\' function', function(){
+            assert.deepEqual(arr1.insert(1, 2, 3, 4), arr2);
+        });
 
-		it('should calculate the intersection of arrays of the same type', function(next){
-			var arr1 = [ 1, 2, 3 ],
-				arr2 = [ 1, 3, 5 ];
+        it('appends if the given index is > length', function(){
+            var arr1 = [ 1 ],
+                arr2 = [ 1, 2 ];
 
-			assert.deepEqual(arr1.intersect(arr2), [ 1, 3 ]);
-			next();
-		});
+            assert.deepEqual(arr1.insert(1, 2), arr2);
+            assert.deepEqual(arr1.insert(10, 3), (arr2.push(3), arr2));
+        });
 
-		it('should calculate the intersection of arrays of different types', function(next){
-			var arr1 = [ 1, "2", 3 ],
-				arr2 = [ 1, "3", 5 ];
+        it('prepends if the given index is <= 0', function(){
+            var arr1 = [ 1 ],
+                arr2 = [ 0 , 1 ];
 
-			assert.deepEqual(arr1.intersect(arr2), [ 1 ]);
-			next();
-		});
+            assert.deepEqual(arr1.insert(-1, 0), arr2);
+        });
 
-		it('should calculate the intersection of an array and non-array values', function(next){
-			var arr1 = [ 1, "2", 3 ];
+    });
 
-			assert.deepEqual(arr1.intersect("1"), [ ]);
-			assert.deepEqual(arr1.intersect(123), [ ]);
-			assert.deepEqual(arr1.intersect(null), [ ]);
-			assert.deepEqual(arr1.intersect(undefined), [ ]);
-			next();
-		});
+    describe('\b.intersect()', function(){
 
-		it('should calculate the intersection of multiple arrays via chaining', function(next){
-			var arr1 = [ 1, 2, 3 ],
-				arr2 = [ 1, 3, 5 ],
-				arr3 = [ 1, 4, 7 ];
+        it('correctly intersects arrays of the same type', function(){
+            var arr1 = [ 1, 2, 3 ],
+                arr2 = [ 1, 3, 5 ];
 
-			assert.deepEqual(arr1.intersect(arr2).intersect(arr3), [ 1 ]);
-			next();
-		});
+            assert.deepEqual(arr1.intersect(arr2), [ 1, 3 ]);
+        });
 
-	});
+        it('handles intersection between different types', function(){
+            var arr1 = [ 1, "2",  3 , 7 ],
+                arr2 = [ 1, "2", "3", 5 ];
 
-	describe('Validation of the \'isEmpty()\' function', function(){
+            assert.deepEqual(arr1.intersect(arr2), [ 1, "2" ]);
+        });
 
-		it('should detect an empty array', function(next){
-			assert([].isEmpty());
-			next();
-		});
+        it('intersects array and non-array values', function(){
+            var arr = [ 1, "2", 3 ];
 
-		it('should detect an array with values', function(next){
-			assert(![ 1 ].isEmpty());
-			assert(!["1"].isEmpty());
-			assert(![ null ].isEmpty());
-			assert(![ undefined ].isEmpty());
-			next();
-		});
+            assert.deepEqual(arr.intersect("1"), [ ]);
+            assert.deepEqual(arr.intersect(123), [ ]);
+            assert.deepEqual(arr.intersect(null), [ ]);
+            assert.deepEqual(arr.intersect(undefined), [ ]);
+        });
 
-	});
+        it('is able to intersect multiple arrays via chaining', function(){
+            var arr1 = [ 1, 2, 3 ],
+                arr2 = [ 1, 3, 5 ],
+                arr3 = [ 1, 4, 7 ];
 
-	describe('Validation of the \'merge()\' function', function(){
+            assert.deepEqual(arr1.intersect(arr2).intersect(arr3), [ 1 ]);
+        });
 
-		it('should merge together two arrays', function(next){
-			var arr1 = [ 1, 2 ],
-				arr2 = [ 3, 4 ];
+    });
 
-			assert.deepEqual(arr1.merge(arr2), [ 1, 2, 3, 4 ]);
-			next();
-		});
+    describe('\b.isEmpty()', function(){
 
-		it('should merge two arrays at a given index', function(next){
-			var arr1 = [ 1, 2 ],
-				arr2 = [ 3, 4 ];
+        it('detects an empty array', function(){
+            assert([].isEmpty());
+        });
 
-			assert.deepEqual(arr1.merge(1, arr2), [ 1, 3, 4, 2 ]);
-			next();
-		});
+        it('detects a non-empty array', function(){
+            assert(![ 1 ].isEmpty());
+            assert(!["1"].isEmpty());
+            assert(![ null ].isEmpty());
+            assert(![ undefined ].isEmpty());
+        });
 
-		it('should merge together multiple arrays', function(next){
-			var arr1 = [ 1, 2 ],
-				arr2 = [ 3, 4 ],
-				arr3 = [ 5, 6 ];
+    });
 
-			assert.deepEqual(arr1.merge(arr2, arr3), [ 1, 2, 3, 4, 5, 6 ]);
-			next();
-		});
+    describe('\b.merge()', function(){
 
-		it('should merge two arrays without duplicates', function(next){
-			var arr1 = [ 1, 2 ],
-				arr2 = [ 2, 3 ];
-
-			assert.deepEqual(arr1.merge(arr2, true), [ 1, 2, 3 ]);
-			next();
-		});
+        it('merges two arrays', function(){
+            var arr1 = [ 1, 2 ],
+                arr2 = [ 3, 4 ];
 
-	});
+            assert.deepEqual(arr1.merge(arr2), [ 1, 2, 3, 4 ]);
+        });
 
-	describe('Validation of the \'normalize()\' function', function(){
+        it('takes an index to merge at', function(){
+            var arr1 = [ 1, 2 ],
+                arr2 = [ 3, 4 ];
 
-		it('should remove invalid values from an array', function(next){
-			var arr1 = [ "test1", "test2", "test3" ],
-				arr2 = [ "test1", "test3" ];
+            assert.deepEqual(arr1.merge(1, arr2), [ 1, 3, 4, 2 ]);
+        });
 
-			assert.deepEqual(arr1.normalize(arr2), arr2);
-			next();
-		});
+        it('correctly merges multiple arrays', function(){
+            var arr1 = [ 1, 2 ],
+                arr2 = [ 3, 4 ],
+                arr3 = [ 5, 6 ];
 
-		it('should allow multiple accepted values in an array', function(next){
-			var arr1 = [ "test1", "test2", "test3", "test3" ],
-				arr2 = [ "test1", "test3" ];
+            assert.deepEqual(arr1.merge(arr2, arr3), [ 1, 2, 3, 4, 5, 6 ]);
+        });
 
-			assert.deepEqual(arr1.normalize(arr2), [ "test1", "test3", "test3" ]);
-			next();
-		});
+        it('merges arrays discarding duplicates', function(){
+            var arr1 = [ 1, 2 ],
+                arr2 = [ 2, 3 ];
 
-		it('should persist values when a normalizer is null or undefined', function(next){
-			var arr1 = [ "test1", "test2", "test3", "test3" ];
+            assert.deepEqual(arr1.merge(arr2, true), [ 1, 2, 3 ]);
+        });
 
-			assert.deepEqual(arr1.normalize(), [ "test1", "test2", "test3", "test3" ]);
-			assert.deepEqual(arr1.normalize(null), [ "test1", "test2", "test3", "test3" ]);
-			next();
-		});
+    });
 
-		it('should remove all values when a normalizer is empty', function(next){
-			var arr1 = [ "test1", "test2", "test3", "test3" ];
+    describe('\b.normalize()', function(){
 
-			assert.deepEqual(arr1.normalize([]), []);
-			next();
-		});
+        it('removes invalid values from an array', function(){
+            var arr1 = [ "test1", "test2", "test3" ],
+                arr2 = [ "test1", "test3" ];
 
-		it('should remove values from an array with case in mind', function(next){
-			var arr1 = [ "TEST1", "test2", "test3" ],
-				arr2 = [ "TEST1", "TEST2", "TEST3" ],
-				arr3 = [ "test1", "test3" ];
+            assert.deepEqual(arr1.normalize(arr2), arr2);
+        });
 
-			assert.deepEqual(arr1.normalize(arr2, true), [ "TEST1" ]);
-			assert.deepEqual(arr1.normalize(arr3, true), [ "test3" ]);
-			next();
-		});
+        it('allows accepted values multiple times', function(){
+            var arr1 = [ "test1", "test2", "test3", "test3" ],
+                arr2 = [ "test1", "test3" ];
 
-		it('should remove values from an array without caring for case', function(next){
-			var arr1 = [ "TEST1", "test2", "test3" ],
-				arr2 = [ "TEST1", "TEST2", "TEST3" ],
-				arr3 = [ "test1", "test3" ];
+            assert.deepEqual(arr1.normalize(arr2), [ "test1", "test3", "test3" ]);
+        });
 
-			assert.deepEqual(arr1.normalize(arr2, false), arr1);
-			assert.deepEqual(arr1.normalize(arr3, false), [ "TEST1", "test3" ]);
-			next();
-		});
+        it('persists exiting values when no normalizer is given', function(){
+            var arr = [ "test1", "test2", "test3", "test3" ];
 
-	});
+            assert.deepEqual(arr.normalize(), [ "test1", "test2", "test3", "test3" ]);
+            assert.deepEqual(arr.normalize(null), [ "test1", "test2", "test3", "test3" ]);
+        });
 
-	describe('Validation of the \'remove()\' function', function(){
+        it('returns an empty array when a normalizer is empty', function(){
+            var arr = [ "test1", "test2", "test3", "test3" ];
 
-		it('should remove an array element', function(next){
-			var arr1 = [ 1, 2 , 3],
-				arr2 = [ 1, 3 ];
+            assert.deepEqual(arr.normalize([]), []);
+        });
 
-			assert.deepEqual(arr1.remove(), arr1);
-			assert.deepEqual(arr1.remove(1), arr2);
-			assert.deepEqual(arr1.remove(-1), arr1);
-			next();
-		});
+        it('can handle values case-sensitively', function(){
+            var arr1 = [ "TEST1", "test2", "test3" ],
+                arr2 = [ "TEST1", "TEST2", "TEST3" ],
+                arr3 = [ "test1", "test3" ];
 
-		it('should remove multiple values from an array', function(next){
-			var arr1 = [ 1, 2, 3 ],
-				arr2 = [ 1 ];
+            assert.deepEqual(arr1.normalize(arr2, true), [ "TEST1" ]);
+            assert.deepEqual(arr1.normalize(arr3, true), [ "test3" ]);
+        });
 
-			assert.deepEqual(arr1.remove(1, 2), arr2);
-			assert.deepEqual(arr1.remove(1, [2]), arr2);
-			next();
-		});
+        it('is able to handle values case-insensitively', function(){
+            var arr1 = [ "TEST1", "test2", "test3" ],
+                arr2 = [ "TEST1", "TEST2", "TEST3" ],
+                arr3 = [ "test1", "test3" ];
 
-		it('should remove multiple indices from an array', function(next){
-			var arr1 = [ 1, 2, 3, 4, 5],
-				arr2 = [ 1, 3, 5 ];
+            assert.deepEqual(arr1.normalize(arr2, false), arr1);
+            assert.deepEqual(arr1.normalize(arr3, false), [ "TEST1", "test3" ]);
+        });
 
-			assert.deepEqual(arr1.remove([1, 3]), arr2);
-			next();
-		});
+    });
 
-		it('should remove multiple entries at multiple indices', function(next){
-			var arr1 = [ 1, 2, 3, 4, 5, 6, 7 ],
-				arr2 = [ 1, 4, 7 ];
+    describe('\b.remove()', function(){
 
-			assert.deepEqual(arr1.remove([1, 4], 2, true), arr2);
-			assert.deepEqual(arr1.remove([1, 4], [2, 2]), arr2);
-			assert.deepEqual(arr1, arr2);
-			next();
-		});
+        it('removes an array element', function(){
+            var arr1 = [ 1, 2 , 3],
+                arr2 = [ 1, 3 ];
 
-	});
+            assert.deepEqual(arr1.remove(), arr1);
+            assert.deepEqual(arr1.remove(1), arr2);
+            assert.deepEqual(arr1.remove(-1), arr1);
+        });
 
-	describe('Validation of the \'toLowerCase()\' function', function(){
+        it('removes multiple elements', function(){
+            var arr1 = [ 1, 2, 3 ],
+                arr2 = [ 1 ];
 
-		it('should convert an array of string to lower case', function(next){
-			var arr1 = [ "TEST1", "TEST2", "TEST3" ];
+            assert.deepEqual(arr1.remove(1, 2), arr2);
+            assert.deepEqual(arr1.remove(1, [2]), arr2);
+        });
 
-			assert.deepEqual(arr1.toLowerCase(), [ "test1", "test2", "test3" ]);
-			next();
-		});
+        it('is able to remove multiple indices', function(){
+            var arr1 = [ 1, 2, 3, 4, 5],
+                arr2 = [ 1, 3, 5 ];
 
-		it('should convert a mixed array to lower case', function(next){
-			var arr1 = [ "TEST1", "TEST2", "TEST3", 4, 5 ];
+            assert.deepEqual(arr1.remove([1, 3]), arr2);
+        });
 
-			assert.deepEqual(arr1.toLowerCase(), [ "test1", "test2", "test3", 4, 5 ]);
-			next();
-		});
+        it('can remove multiple elements at multiple indices', function(){
+            var arr1 = [ 1, 2, 3, 4, 5, 6, 7 ],
+                arr2 = [ 1, 4, 7 ];
 
-		it('should persist an array of numbers', function(next){
-			var arr1 = [ 1, 2, 3 ];
+            assert.deepEqual(arr1.remove([1, 4], 2, true), arr2);
+            assert.deepEqual(arr1.remove([1, 4], [2, 2]), arr2);
+            assert.deepEqual(arr1, arr2);
+        });
 
-			assert.deepEqual(arr1.toLowerCase(), arr1);
-			next();
-		});
+    });
 
-		it('should handle an empty array', function(next){
-			var arr1 = [ ];
+    describe('\b.toLowerCase()', function(){
 
-			assert.deepEqual(arr1.toLowerCase(), arr1);
-			next();
-		});
+        it('converts a string array to lower case', function(){
+            var arr = [ "TEST1", "TEST2", "TEST3" ];
 
-	});
+            assert.deepEqual(arr.toLowerCase(), [ "test1", "test2", "test3" ]);
+        });
 
-	describe('Validation of the \'toUpperCase()\' function', function(){
+        it('is able to convert a mixed array', function(){
+            var arr = [ "TEST1", "TEST2", "TEST3", 4, 5 ];
 
-		it('should convert an array of string to upper case', function(next){
-			var arr1 = [ "test1", "test2", "test3" ];
+            assert.deepEqual(arr.toLowerCase(), [ "test1", "test2", "test3", 4, 5 ]);
+        });
 
-			assert.deepEqual(arr1.toUpperCase(), [ "TEST1", "TEST2", "TEST3" ]);
-			next();
-		});
+        it('does not modify non-string values', function(){
+            var arr = [ 1, 2, 3 ];
 
-		it('should convert a mixed array to upper case', function(next){
-			var arr1 = [ "test1", "test2", "test3", 4, 5 ];
+            assert.deepEqual(arr.toLowerCase(), arr);
+        });
 
-			assert.deepEqual(arr1.toUpperCase(), [ "TEST1", "TEST2", "TEST3", 4, 5 ]);
-			next();
-		});
+        it('can handle an empty array', function(){
+            var arr = [ ];
 
-		it('should persist an array of numbers', function(next){
-			var arr1 = [ 1, 2, 3 ];
+            assert.deepEqual(arr.toLowerCase(), arr);
+        });
 
-			assert.deepEqual(arr1.toUpperCase(), arr1);
-			next();
-		});
+    });
 
-		it('should handle an empty array', function(next){
-			var arr1 = [ ];
+    describe('\b.toUpperCase()', function(){
 
-			assert.deepEqual(arr1.toUpperCase(), arr1);
-			next();
-		});
+        it('converts a string array to upper case', function(){
+            var arr = [ "test1", "test2", "test3" ];
 
-	});
+            assert.deepEqual(arr.toUpperCase(), [ "TEST1", "TEST2", "TEST3" ]);
+        });
 
-	describe('Validation of the \'unique()\' function', function(){
+        it('is able to convert a mixed array', function(){
+            var arr = [ "test1", "test2", "test3", 4, 5 ];
 
-		it('should filter out primitive types', function(next){
-			var arr1 = [ "test1", "test1", "test2", "test3" ];
+            assert.deepEqual(arr.toUpperCase(), [ "TEST1", "TEST2", "TEST3", 4, 5 ]);
+        });
 
-			assert.deepEqual(arr1.unique(), [ "test1", "test2", "test3" ]);
-			next();
-		});
+        it('does not modify non-string values', function(){
+            var arr = [ 1, 2, 3 ];
 
-		it('should maintain cast items or items of a different case', function(next){
-			var arr1 = [ "test1", "TEST1", 4, "4" ];
+            assert.deepEqual(arr.toUpperCase(), arr);
+        });
 
-			assert.deepEqual(arr1.unique(), [ "test1", "TEST1", 4, "4" ]);
-			next();
-		});
+        it('can handle an empty array', function(){
+            var arr = [ ];
 
-		it('should filter out nested arrays', function(next){
-			var arr1 = [ [1, 2], [1, 2], [1, 3] ];
+            assert.deepEqual(arr.toUpperCase(), arr);
+        });
 
-			assert.deepEqual(arr1.unique(), [ [1, 2], [1, 3] ]);
-			next();
-		});
+    });
 
-		it('should recursively filter out objects', function(next){
-			var arr1 = [ { a:1 }, { a:1 }, { b:2 }],
-				arr2 = [ { a:{ b:1 } }, { a:{ b:1 } }, { a:{ b:2 } }];
+    describe('\b.unique()', function(){
 
-			assert.deepEqual(arr1.unique(), [ { a:1 }, { b:2 } ]);
-			assert.deepEqual(arr2.unique(), [ { a:{ b:1 } }, { a:{ b:2 } } ]);
-			next();
-		});
+        it('filters out primitive types', function(){
+            var arr = [ "test1", "test1", "test2", "test3" ];
 
-	});
+            assert.deepEqual(arr.unique(), [ "test1", "test2", "test3" ]);
+        });
+
+        it('maintains elements of different types or cases', function(){
+            var arr = [ "test1", "TEST1", 4, "4" ];
+
+            assert.deepEqual(arr.unique(), [ "test1", "TEST1", 4, "4" ]);
+        });
+
+        it('is able to filter out nested arrays', function(){
+            var arr = [ [1, 2], [1, 2], [1, 3] ];
+
+            assert.deepEqual(arr.unique(), [ [1, 2], [1, 3] ]);
+        });
+
+        it('recursively filters out objects', function(){
+            var arr1 = [ { a:1 }, { a:1 }, { b:2 }],
+                arr2 = [ { a:{ b:1 } }, { a:{ b:1 } }, { a:{ b:2 } }];
+
+            assert.deepEqual(arr1.unique(), [ { a:1 }, { b:2 } ]);
+            assert.deepEqual(arr2.unique(), [ { a:{ b:1 } }, { a:{ b:2 } } ]);
+        });
+
+    });
 
 });

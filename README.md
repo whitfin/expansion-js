@@ -80,6 +80,15 @@ There are several prototypes included in this library already, and will have mor
 
 ### Array ###
 
+#### Array.contains(value) ####
+
+Convenient shorthand for `Array.indexOf() > -1`. Returns true if the given value exists in the array.
+
+```
+[ 1,  2 , 3 ].contains(1);  // true
+[ 1, "2", 3 ].contains(2);  // false
+```
+
 #### Array.insert(index, entry...) ####
 
 Insert an arbitrary number of elements at the given index in an array. If the index is out of bounds on either side of the array, the index will default to the nearest index it can find. This method is destructive by operating on the current instance of the array, but also returns to allow chaining.
