@@ -209,15 +209,15 @@ describe('Testing library prototypes of the Object object', function(){
 			var obj = { b:{ b:2, a:1 }, a:2, c:3 },
 				expected = JSON.stringify({ a:2, b:{ b:2, a:1 }, c:3 });
 
-			assert.equal(JSON.stringify(obj.sort(true, true)), expected);
+			assert.equal(JSON.stringify(obj.sort(true)), expected);
 			next();
 		});
 
-		it('should create a sorted clone of an object', function(next){
-			var obj = { b:{ b:2, a:1 }, a:2, c:3 },
-				expected = JSON.stringify({ a:2, b:{ b:2, a:1 }, c:3 });
+		it('should handle null values', function(next){
+			var obj = { a: 1, b:{ c: null } },
+				expected = JSON.stringify({ a: 1, b:{ c: null } });
 
-			assert.equal(JSON.stringify(obj.sort(false, true)), expected);
+			assert.equal(JSON.stringify(obj.sort(false)), expected);
 			next();
 		});
 
@@ -225,13 +225,13 @@ describe('Testing library prototypes of the Object object', function(){
 			var obj = { b:{ b:2, a:1 }, a:2, c:3 },
 				expected = JSON.stringify({ a:2, b:{ a:1, b:2 }, c:3 });
 
-			assert.equal(JSON.stringify(obj.sort(true)), expected);
+			assert.equal(JSON.stringify(obj.sort(false)), expected);
 			next();
 		});
 
-		it('should recursively create a sorted clone of an object', function(next){
-			var obj = { b:{ b:2, a:1 }, a:2, c:3 },
-				expected = JSON.stringify({ a:2, b:{ a:1, b:2 }, c:3 });
+		it('should ignore arrays when sorting', function(next){
+			var obj = { b:{ b:2, a:[ 1, 2, 3 ] }, a:2, c:3 },
+				expected = JSON.stringify({ a:2, b:{ a:[ 1, 2, 3], b:2 }, c:3 });
 
 			assert.equal(JSON.stringify(obj.sort(false)), expected);
 			next();
