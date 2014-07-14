@@ -2,7 +2,7 @@ var assert = require('assert');
 
 describe('String', function(){
 
-    describe('\b.capitalize()', function(){
+    describe('\b.capitalize', function(){
 
         it('is able to capitalize a single word', function(){
             assert.equal("word".capitalize(), "Word");

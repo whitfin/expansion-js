@@ -2,7 +2,7 @@ var assert = require('assert');
 
 describe('Number', function(){
 
-    describe('\b.abbreviate()', function(){
+    describe('\b.abbreviate', function(){
 
         it('abbreviates numbers up to 1 Trillion', function(){
             assert.equal((1000).abbreviate(), "1K");
@@ -34,7 +34,7 @@ describe('Number', function(){
 
     });
 
-    describe('\b.comma()', function(){
+    describe('\b.comma', function(){
 
         it('does not use a comma in numbers < 1,000', function(){
             assert.equal((999).comma(), "999");
@@ -56,7 +56,7 @@ describe('Number', function(){
 
     });
 
-    describe('\b.inRange()', function(){
+    describe('\b.inRange', function(){
 
         it('is able to validate if a number is in range', function(){
             assert((999).inRange(500, 1000));

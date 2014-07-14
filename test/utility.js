@@ -3,7 +3,7 @@ var assert = require('assert'),
 
 describe('Expansion', function(){
 
-    describe('\b.add()', function(){
+    describe('\b.add', function(){
 
         it('adds a prototype function to an object', function(){
             expand.add(Object, 'protoFunc', function(){
@@ -27,7 +27,7 @@ describe('Expansion', function(){
 
     });
 
-    describe('\b.remove()', function(){
+    describe('\b.remove', function(){
 
         it('removes a prototype function from an object', function(){
             expand.delete(Object, 'protoFunc');

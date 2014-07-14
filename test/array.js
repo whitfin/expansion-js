@@ -2,7 +2,7 @@ var assert = require('assert');
 
 describe('Array', function(){
 
-    describe('\b.contains()', function(){
+    describe('\b.contains', function(){
 
         it('validates an element exists', function(){
             var arr = [ 1, 3 ];
@@ -18,7 +18,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.insert()', function(){
+    describe('\b.insert', function(){
 
         it('inserts a value at an index', function(){
             var arr1 = [ 1, 3 ],
@@ -51,7 +51,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.intersect()', function(){
+    describe('\b.intersect', function(){
 
         it('correctly intersects arrays of the same type', function(){
             var arr1 = [ 1, 2, 3 ],
@@ -86,7 +86,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.isEmpty()', function(){
+    describe('\b.isEmpty', function(){
 
         it('detects an empty array', function(){
             assert([].isEmpty());
@@ -101,7 +101,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.merge()', function(){
+    describe('\b.merge', function(){
 
         it('merges two arrays', function(){
             var arr1 = [ 1, 2 ],
@@ -134,7 +134,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.normalize()', function(){
+    describe('\b.normalize', function(){
 
         it('removes invalid values from an array', function(){
             var arr1 = [ "test1", "test2", "test3" ],
@@ -183,7 +183,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.remove()', function(){
+    describe('\b.remove', function(){
 
         it('removes an array element', function(){
             var arr1 = [ 1, 2 , 3],
@@ -220,7 +220,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.toLowerCase()', function(){
+    describe('\b.toLowerCase', function(){
 
         it('converts a string array to lower case', function(){
             var arr = [ "TEST1", "TEST2", "TEST3" ];
@@ -248,7 +248,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.toUpperCase()', function(){
+    describe('\b.toUpperCase', function(){
 
         it('converts a string array to upper case', function(){
             var arr = [ "test1", "test2", "test3" ];
@@ -276,7 +276,7 @@ describe('Array', function(){
 
     });
 
-    describe('\b.unique()', function(){
+    describe('\b.unique', function(){
 
         it('filters out primitive types', function(){
             var arr = [ "test1", "test1", "test2", "test3" ];

@@ -2,7 +2,7 @@ var assert = require('assert');
 
 describe('Object', function(){
 
-    describe('\b.clone()', function(){
+    describe('\b.clone', function(){
 
         it('clones and object', function(){
             var arr1 = [ "test1", "test2", "test3" ],
@@ -54,7 +54,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.equals()', function(){
+    describe('\b.equals', function(){
 
         it('uses the equality operator to compare objects', function(){
             assert([ 5, 5 ].equals([ 5, 5 ], true));
@@ -86,7 +86,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.instance()', function(){
+    describe('\b.instance', function(){
 
         it('handles primitive types', function(){
             assert.equal((1).instance(), "Number");
@@ -115,7 +115,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.loop()', function(){
+    describe('\b.loop', function(){
 
         it('loops single level objects', function(){
             var i = 0,
@@ -153,7 +153,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.loopr()', function(){
+    describe('\b.loopr', function(){
 
         it('recursively loops objects', function(){
             ({ a:{ b:{ c:15 } } }).loopr(function(key, value, path){
@@ -193,7 +193,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.pretty()', function(){
+    describe('\b.pretty', function(){
 
         it('uses 4 spaces to pretty an object', function(){
             assert.equal([ "a", "b", "c" ].pretty('    '), "[\n    \"a\",\n    \"b\",\n    \"c\"\n]");
@@ -219,7 +219,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.sort()', function(){
+    describe('\b.sort', function(){
 
         it('sorts an object by key', function(){
             var obj = { b:{ b:2, a:1 }, a:2, c:3 },
@@ -251,7 +251,7 @@ describe('Object', function(){
 
     });
 
-    describe('\b.validate()', function(){
+    describe('\b.validate', function(){
 
         it('compares a base object with a schema', function(){
             var obj  = { a:1, b:{ c:2, d:"3" } },
