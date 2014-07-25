@@ -1,4 +1,11 @@
+# osx stuff
 .DS_Store
+
+# WebStorm stuff
 .idea/
+
+# coverage
 coverage.html
+
+# node modules
 node_modules/

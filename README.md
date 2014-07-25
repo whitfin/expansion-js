@@ -19,7 +19,7 @@ ExpansionJS is a simple library which adds prototype values to the native JavaSc
 Install from this repo via npm:
 
 ```
-$ npm install iwhitfield/expansion-js
+$ npm install expansion
 ```
 
 The moment you require in the library, the prototyping takes place - so, it's as simple as having this somewhere in your code:
@@ -464,7 +464,7 @@ Checks if the current string ends with a given string, returns true if this is t
 var str = "this is a test string.";
 
 str.endsWith("string."); // true
-str.endsWith("String."); // true
+str.endsWith("String."); // false
 str.endsWith("test.");   // false
 ```
 

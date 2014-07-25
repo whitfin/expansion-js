@@ -4,10 +4,10 @@ var fs = require('fs');
  * Simple handling for adding a new prototype value. Figured it's better
  * to provide a way to do it all in one place.
  *
- * @param proto			the superclass to prototype (Object, Array, etc).
- * @param key			the key of your prototype
- * @param value			the value of your prototype
- * @param properties	the properties of your prototype
+ * @param proto                 the superclass to prototype (Object, Array, etc).
+ * @param key                   the key of your prototype
+ * @param value                 the value of your prototype
+ * @param properties            the properties of your prototype
  */
 exports.add = exports.create = function(proto, key, value, properties){
     // Make sure we have some properties
@@ -28,8 +28,8 @@ exports.add = exports.create = function(proto, key, value, properties){
  * Simple handling for removing a value from a prototype. It's just as
  * easy to do this from within your own code, but it's here for completeness.
  *
- * @param proto			the superclass to remove the prototype from
- * @param key			the key of the prototype to remove
+ * @param proto                 the superclass to remove the prototype from
+ * @param key                   the key of the prototype to remove
  */
 exports.delete = exports.remove = function(proto, key){
     // Delete the prototype

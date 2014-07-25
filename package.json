@@ -14,7 +14,8 @@
     "readmeFilename":"README.md",
     "keywords":[
         "expansion-js",
-        "prototype"
+        "prototype",
+        "utility"
     ],
     "scripts": {
         "coverage":"rm -f coverage.html && mocha -r blanket -R html-cov test > coverage.html",
