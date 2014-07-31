@@ -195,9 +195,24 @@ var arr = [ 1, 2, 3, 4, 5, 5, 3, 2 ]
 arr.unique();   // [ 1, 2, 3, 4, 5 ]
 ```
 
+### Function ###
+
+#### Function.withoutArgs ####
+
+Returns a wrapper around the given function without arguments. Used when passing a function as a callback without wanting to use the passed parameters.
+
+```
+function a(b) {
+    return b || "c";
+}
+
+a(1); a(2); a(3);   // 1, 2, 3
+a.withoutArgs();    // "c"
+```
+
 ### Number ###
 
-#### Number.abbreviate([decimal) ####
+#### Number.abbreviate([decimal]) ####
 
 Returns a readable formatting of the number as a string for use with displayed outputs. Can take a number of decimal places to round to when shortening.
 
