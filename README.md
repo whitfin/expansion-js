@@ -40,7 +40,7 @@ Support for CI builds against Node v0.6.x have been removed due to the need for 
 
 ## Usage ##
 
-ExpansionJS provides two simple utility methods, to create and remove Object prototypes. These functions are just an alternate way to prototype with a slightly nicer format (in my opinion).
+ExpansionJS provides two simple utility methods, to create and remove Object prototypes. These functions are just an alternate way to prototype with a slightly nicer format (in my opinion). This project is still undergoing development, so methods and signatures are subject to change (although most won't).
 
 ### expand.add(Object, key, value[, properties]) ###
 
@@ -444,6 +444,19 @@ obj.validate({
 ```
 
 ### String ###
+
+#### String.asKeys() ####
+
+Converts a string in dot notation to an array of keys. Requires strict dot notation syntax, or a ParseException will be thrown. Here are valid examples of the syntax:
+
+```
+a.list.of.keys
+a['list']['of']['keys']
+a["list"].of["keys"]
+['a']['list']['of']['keys']
+
+"a.list.of.keys".asKeys();  // [ "a", "list", "of", "keys" ]
+```
 
 #### String.capitalize([pattern]) ####
 

@@ -2,6 +2,54 @@ var assert = require('assert');
 
 describe('String', function(){
 
+    describe('\b.asKeys', function(){
+
+        it('converts basic dot notation to an array of keys', function(){
+            assert.deepEqual("a.list.of.keys".asKeys(), [ "a", "list", "of", "keys" ]);
+        });
+
+        it('handles square brackets correctly', function(){
+            assert.deepEqual("a[\"list\"]['of'][\"keys\"]".asKeys(), [ "a", "list", "of", "keys" ]);
+        });
+
+        it('correctly uses all types of notation', function(){
+            assert.deepEqual("a.list.of['huge'].keys".asKeys(), [ "a", "list", "of", "huge", "keys" ]);
+        });
+
+        it('does not allow invalid keys', function(){
+            var validation = function(err) {
+                assert.equal(err.name, "ParseException");
+                return true;
+            };
+            assert.throws(
+                function() {
+                    "a.key.with.no[quotes]".asKeys();
+                }, validation, "Unexpected Error"
+            );
+            assert.throws(
+                function() {
+                    "a.list.of['keys".asKeys();
+                }, validation, "Unexpected Error"
+            );
+            assert.throws(
+                function() {
+                    "a.list.of['keys]".asKeys();
+                }, validation, "Unexpected Error"
+            );
+            assert.throws(
+                function() {
+                    "a.list.of['huge.keys".asKeys()
+                }, validation, "Unexpected Error"
+            );
+            assert.throws(
+                function() {
+                    "i.like..dots".asKeys();
+                }, validation, "Unexpected Error"
+            );
+        });
+
+    });
+
     describe('\b.capitalize', function(){
 
         it('is able to capitalize a single word', function(){
