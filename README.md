@@ -288,6 +288,16 @@ car1;   // Car {desc: "honda", color: "red", getInfo: function}
 car2;   // Car {desc: "toyota", color: "red", getInfo: function}
 ```
 
+#### Object.createKey(key, value) ####
+
+Creates a key inside an object with a given value. Dot notation friendly. Simple way to create nests where appropriate to create a nested key. If a nest is specified and does not exist, it will be created.
+
+```
+{}.createKey("a.b.c", 5);                           // { "a":{ "b":{ "c":5 } } }
+{}.createKey("['a.b'].c", 5);                       // { "a.b":{ "c":5 } } }
+{ a:{ b:5, c:{ d:5 } } }.createKey("a.b.c.d", 10);  // { "a":{ "b":5, "c":{ "d":10 } } }
+```
+
 #### Object.equals(object[, equality]) ####
 
 Compares against an object and returns a boolean if the two are identical. The `equality` parameter dictates if we should use `==` over `===` for comparisons.

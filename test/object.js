@@ -54,6 +54,35 @@ describe('Object', function(){
 
     });
 
+    describe('\b.createKey', function(){
+
+        it('creates a key with a given value', function(){
+            assert({}.createKey('my-key', 10).equals({ 'my-key':10 }));
+            assert({}.createKey('my-key', '10').equals({ 'my-key':'10' }));
+        });
+
+        it('returns the current object if params are missing', function(){
+            assert({}.createKey('my-key').equals({ }));
+            assert({}.createKey(null, 10).equals({ }));
+            assert({}.createKey('my-key', null).equals({ }));
+            assert({}.createKey(undefined, 10).equals({ }));
+        });
+
+        it('can create a key from a nested path', function(){
+            assert({}.createKey('a.b.c', 10).equals({ a: { b: { c:10 } } }));
+            assert({}.createKey('a.b.c', '10').equals({ a: { b: { c:'10' } } }));
+        });
+
+        it('can preserve existing keys inside an object', function(){
+            var obj1 = { a: { b:{ c:{ }, e:5 } } },
+                obj2 = { a: { b: { c:{ d:10 }, e:5 } } };
+
+            assert(obj1.createKey('a.b.c.d', 10).equals(obj2));
+            assert(obj1.createKey('a.b.c.d', '10').equals((obj2.a.b.c.d = '10', obj2)));
+        });
+
+    });
+
     describe('\b.equals', function(){
 
         it('uses the equality operator to compare objects', function(){
