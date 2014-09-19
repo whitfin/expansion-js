@@ -89,6 +89,15 @@ Convenient shorthand for `Array.indexOf() > -1`. Returns true if the given value
 [ 1, "2", 3 ].contains(2);  // false
 ```
 
+#### Array.fill(value) ####
+
+Fills an array with a given value. Shorthand instead of having to write your own loops. Protects objects and does not store via reference.
+
+```
+new Array(3).fill(1);               // [ 1, 1, 1 ]
+new Array(3).fill({ 'a': 5 });      // [ { 'a': 5 }, { 'a': 5 }, { 'a': 5 } ]
+```
+
 #### Array.insert(index, entry...) ####
 
 Insert an arbitrary number of elements at the given index in an array. If the index is out of bounds on either side of the array, the index will default to the nearest index it can find. This method is destructive by operating on the current instance of the array, but also returns to allow chaining.

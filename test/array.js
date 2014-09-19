@@ -18,6 +18,47 @@ describe('Array', function(){
 
     });
 
+    describe('\b.fill', function(){
+
+        it('fills an array with string values', function(){
+            var arr = new Array(10).fill('my-string');
+
+            for(var i = 0; i < 10; i++){
+                assert.equal(arr[i], 'my-string');
+            }
+        });
+
+        it('fills an array with object values', function(){
+            var arr = new Array(10).fill({ 'a': 5 });
+
+            for(var i = 0; i < 10; i++){
+                assert(arr[i].equals({ 'a': 5 }));
+            }
+        });
+
+        it('does not store objects via reference', function(){
+            var obj = { 'a': 5, 'b': 10 };
+            var arr = new Array(10).fill(obj);
+
+            obj.c = 15;
+
+            for(var i = 0; i < 10; i++){
+                assert(arr[i].equals({ 'a': 5, 'b': 10 }));
+            }
+        });
+
+        it('handles null and undefined values', function(){
+            var arr1 = new Array(10).fill(null);
+            var arr2 = new Array(10).fill(undefined);
+
+            for(var i = 0; i < 10; i++){
+                assert.strictEqual(arr1[i], null);
+                assert.strictEqual(arr2[i], undefined);
+            }
+        });
+
+    });
+
     describe('\b.insert', function(){
 
         it('inserts a value at an index', function(){
