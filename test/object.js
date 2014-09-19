@@ -4,7 +4,7 @@ describe('Object', function(){
 
     describe('\b.clone', function(){
 
-        it('clones and object', function(){
+        it('clones an object', function(){
             var arr1 = [ "test1", "test2", "test3" ],
                 obj1 = { a:1, b:2, c:3 };
 
