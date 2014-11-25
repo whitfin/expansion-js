@@ -142,6 +142,20 @@ describe('Array', function(){
 
     });
 
+    describe('\b.last', function(){
+
+        it('returns the last element in an array', function(){
+            assert.equal([ 1, 2, 3 ].last(), 3);
+            assert.equal(["1","2","3"].last(), "3");
+            assert.equal([ null, null, null ].last(), null);
+        });
+
+        it('handle an empty array', function(){
+            assert(![].last());
+        });
+
+    });
+
     describe('\b.merge', function(){
 
         it('merges two arrays', function(){

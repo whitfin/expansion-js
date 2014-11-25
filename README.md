@@ -133,7 +133,16 @@ Exactly what it says, returns a boolean based on the population of the array. Tr
 [1].isEmpty();  // false
 ```
 
-#### Array.merge([index][, arrays...][, filter] ####
+#### Array.last() ####
+
+Returns the last element of an array. Similar to Array#pop, except does not remove the element.
+
+```
+[ 1, 2, 3 ].last();     // 3
+[ "3", "5" ].last();    // "5"
+```
+
+#### Array.merge([index][, arrays...][, filter]) ####
 
 An extension on the Array.concat() method to allow insertion at a given index, with the option of filtering duplications.
 
@@ -544,7 +553,7 @@ $ mocha -R spec array.js
 You can also generate a coverage file via Mocha using the below command:
 
 ```
-$ npm run-script coverage && open-coverage.html
+$ npm run-script coverage && open coverage.html
 ```
 
 ## Issues ##
