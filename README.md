@@ -306,16 +306,6 @@ car1;   // Car {desc: "honda", color: "red", getInfo: function}
 car2;   // Car {desc: "toyota", color: "red", getInfo: function}
 ```
 
-#### Object.createKey(key, value) ####
-
-Creates a key inside an object with a given value. Dot notation friendly. Simple way to create nests where appropriate to create a nested key. If a nest is specified and does not exist, it will be created.
-
-```
-{}.createKey("a.b.c", 5);                           // { "a":{ "b":{ "c":5 } } }
-{}.createKey("['a.b'].c", 5);                       // { "a.b":{ "c":5 } } }
-{ a:{ b:5, c:{ d:5 } } }.createKey("a.b.c.d", 10);  // { "a":{ "b":5, "c":{ "d":10 } } }
-```
-
 #### Object.equals(object[, equality]) ####
 
 Compares against an object and returns a boolean if the two are identical. The `equality` parameter dictates if we should use `==` over `===` for comparisons.
@@ -469,6 +459,20 @@ obj.validate({
         f:'undefined'
     }
 });
+```
+
+#### Object.with(key[, value]) ####
+
+Creates a key with a given value. Dot notation friendly. If a nest is specified and does not exist, it will be created. Returns itself for chaining, and the ability to include in assignments.
+
+```
+{}.with("a.b.c", 5);                            // { "a":{ "b":{ "c":5 } } }
+{}.with("['a.b'].c", 5);                        // { "a.b":{ "c":5 } } }
+{ a:{ b:5, c:{ d:5 } } }.with("a.b.c.d", 10);   // { "a":{ "b":5, "c":{ "d":10 } } }
+
+var myString = 'test';
+
+var obj = { 'a': 5 }.with(myString, 10);        // { "a":5, "test":10 }
 ```
 
 ### String ###

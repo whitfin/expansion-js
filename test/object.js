@@ -54,35 +54,6 @@ describe('Object', function(){
 
     });
 
-    describe('\b.createKey', function(){
-
-        it('creates a key with a given value', function(){
-            assert({}.createKey('my-key', 10).equals({ 'my-key':10 }));
-            assert({}.createKey('my-key', '10').equals({ 'my-key':'10' }));
-        });
-
-        it('returns the current object if params are missing', function(){
-            assert({}.createKey('my-key').equals({ }));
-            assert({}.createKey(null, 10).equals({ }));
-            assert({}.createKey('my-key', null).equals({ }));
-            assert({}.createKey(undefined, 10).equals({ }));
-        });
-
-        it('can create a key from a nested path', function(){
-            assert({}.createKey('a.b.c', 10).equals({ a: { b: { c:10 } } }));
-            assert({}.createKey('a.b.c', '10').equals({ a: { b: { c:'10' } } }));
-        });
-
-        it('can preserve existing keys inside an object', function(){
-            var obj1 = { a: { b:{ c:{ }, e:5 } } },
-                obj2 = { a: { b: { c:{ d:10 }, e:5 } } };
-
-            assert(obj1.createKey('a.b.c.d', 10).equals(obj2));
-            assert(obj1.createKey('a.b.c.d', '10').equals((obj2.a.b.c.d = '10', obj2)));
-        });
-
-    });
-
     describe('\b.equals', function(){
 
         it('uses the equality operator to compare objects', function(){
@@ -320,6 +291,42 @@ describe('Object', function(){
 
             assert( obj.validate(pass));
             assert(!obj.validate(fail));
+        });
+
+    });
+
+    describe('\b.with', function(){
+
+        it('adds a key/value to an object', function(){
+            var obj = {};
+
+            assert.deepEqual(obj.with('a', 5), { 'a':5 });
+            assert.deepEqual(obj.with('b', "10"), { 'a':5, 'b':"10" });
+            assert.deepEqual(obj.with('c', [ 123 ]), { 'a':5, 'b':"10", 'c':[ 123 ] });
+            assert.deepEqual(obj.with('d', { 'e':1 }), { 'a':5, 'b':"10", 'c':[ 123 ], 'd':{ 'e':1 } });
+        });
+
+        it('adds null and undefined values', function(){
+            var obj = {};
+
+            assert.deepEqual(obj.with('a', null), { 'a':null });
+            assert.deepEqual(obj.with('b', undefined), { 'a':null, 'b':undefined });
+            assert.deepEqual(obj.with('c'), { 'a': null, 'b':undefined, 'c':undefined });
+        });
+
+        it('will not add if given a null or undefined key', function(){
+            var obj = {};
+
+            assert.deepEqual(obj.with(null, 5), { });
+            assert.deepEqual(obj.with(undefined, 5), { });
+        });
+
+        it('allows dot noted keys as a parameter', function(){
+            assert.deepEqual({}.with('a.b', 5), { 'a':{ 'b':5 } });
+            assert.deepEqual({}.with('a.b.c', 5), { 'a':{ 'b':{ 'c':5 } } });
+            assert.deepEqual({}.with('[\'a.b\'].c', 5), { 'a.b':{ 'c':5 } });
+            assert.deepEqual({}.with('a[\'b\'].c', 5), { 'a':{ 'b':{ 'c':5 } } });
+            assert.deepEqual({ 'a':{ 'b':{ } }}.with('a.b.c', 5), { 'a':{ 'b':{ 'c':5 } } });
         });
 
     });
