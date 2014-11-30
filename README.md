@@ -319,7 +319,7 @@ obj.equals({ key2:"2", key1:1, key3:{ key4:4 } }, true);   // true
 
 #### Object.instance() ####
 
-Returns the type the object belongs to. This is effectively a way to print `instanceof`. Can also be used instead of `typeof(obj)`.
+Returns the type the object belongs to. This is effectively a way to print `instanceof`. Can also be used instead of `typeof(obj)`. This is a nicer way to use `Function.name` for browsers with no support.
 
 ```
 var arr = [],
